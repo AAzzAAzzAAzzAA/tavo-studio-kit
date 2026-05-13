@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "strict": true,
+    "types": ["node"],
+    "paths": {
+      "tavo-dev-kit": ["./src/index.ts"],
+      "tavo-dev-kit/mock": ["./src/mock.ts"]
+    }
+  },
+  "include": ["dev/**/*.d.ts", "examples/**/*.js", "templates/**/*.js"]
+}

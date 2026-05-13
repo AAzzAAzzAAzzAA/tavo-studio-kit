@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DEVICE="${TAVO_DEVICE:-emulator-5554}"
+PKG="${TAVO_PACKAGE:-app.bitbear.tav}"
+ACTIVITY="${TAVO_ACTIVITY:-com.ryanheise.audioservice.AudioServiceActivity}"
+IME="${TAVO_ADB_IME:-com.codex.adbime/.CodexAdbImeService}"
+SDK="${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}"
+BUILD_TOOLS="${TAVO_BUILD_TOOLS:-$SDK/build-tools/36.1.0}"
+ANDROID_JAR="${TAVO_ANDROID_JAR:-$SDK/platforms/android-36.1/android.jar}"
+JAVA_HOME_CANDIDATE="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+
+adb_cmd() {
+  adb -s "$DEVICE" "$@"
+}
+
+redact() {
+  sed -E 's/vtx_[A-Za-z0-9_]+/[REDACTED]/g; s/sk-[A-Za-z0-9_-]+/[REDACTED]/g; s/(Bearer )[A-Za-z0-9._~-]+/\1[REDACTED]/g'
+}
+
+dump_xml() {
+  adb_cmd shell uiautomator dump /sdcard/window_dump.xml >/dev/null 2>&1 || true
+  adb_cmd exec-out cat /sdcard/window_dump.xml
+}
+
+visible_texts() {
+  dump_xml | perl -CS -ne 'while(/(?:content-desc|text)="([^"]{1,500})"/g){$s=$1;$s=~s/&quot;/"/g;$s=~s/&#10;/ | /g;$s=~s/&amp;/&/g; print "$s\n" if $s ne ""}' | awk '!seen[$0]++' | redact
+}
+
+find_java() {
+  if command -v java >/dev/null 2>&1 && command -v javac >/dev/null 2>&1; then
+    echo "$(dirname "$(command -v java)")"
+    return
+  fi
+  if [[ -x "$JAVA_HOME_CANDIDATE/bin/java" && -x "$JAVA_HOME_CANDIDATE/bin/javac" ]]; then
+    echo "$JAVA_HOME_CANDIDATE/bin"
+    return
+  fi
+  echo "No Java runtime with javac found. Install Android Studio JBR or set PATH." >&2
+  exit 1
+}
+
+install_ime() {
+  local tmp java_bin java javac keytool
+  tmp="$(mktemp -d /tmp/tavo-adb-ime.XXXXXX)"
+  java_bin="$(find_java)"
+  java="$java_bin/java"
+  javac="$java_bin/javac"
+  keytool="$java_bin/keytool"
+  mkdir -p "$tmp/src/com/codex/adbime" "$tmp/res/xml" "$tmp/res/values" "$tmp/gen" "$tmp/obj" "$tmp/dex"
+  cat > "$tmp/AndroidManifest.xml" <<'EOF'
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.codex.adbime">
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="36" />
+    <application android:label="Codex ADB IME" android:theme="@style/AppTheme">
+        <service
+            android:name=".CodexAdbImeService"
+            android:permission="android.permission.BIND_INPUT_METHOD"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+        </service>
+    </application>
+</manifest>
+EOF
+  cat > "$tmp/res/values/styles.xml" <<'EOF'
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>
+EOF
+  cat > "$tmp/res/xml/method.xml" <<'EOF'
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="">
+    <subtype android:imeSubtypeLocale="zh_CN" android:imeSubtypeMode="keyboard" />
+</input-method>
+EOF
+  cat > "$tmp/src/com/codex/adbime/CodexAdbImeService.java" <<'EOF'
+package com.codex.adbime;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.inputmethodservice.InputMethodService;
+import android.os.Build;
+import android.view.inputmethod.InputConnection;
+
+public class CodexAdbImeService extends InputMethodService {
+    public static final String ACTION_INPUT_TEXT = "com.codex.adbime.INPUT_TEXT";
+    public static final String EXTRA_TEXT = "text";
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!ACTION_INPUT_TEXT.equals(intent.getAction())) return;
+            String text = intent.getStringExtra(EXTRA_TEXT);
+            if (text == null) return;
+            InputConnection inputConnection = getCurrentInputConnection();
+            if (inputConnection != null) inputConnection.commitText(text, 1);
+        }
+    };
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IntentFilter filter = new IntentFilter(ACTION_INPUT_TEXT);
+        if (Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(receiver, filter);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+}
+EOF
+  "$BUILD_TOOLS/aapt" package -f -m -J "$tmp/gen" -S "$tmp/res" -M "$tmp/AndroidManifest.xml" -I "$ANDROID_JAR"
+  "$javac" -source 17 -target 17 -classpath "$ANDROID_JAR" -d "$tmp/obj" "$tmp/gen/com/codex/adbime/R.java" "$tmp/src/com/codex/adbime/CodexAdbImeService.java"
+  "$java" -cp "$BUILD_TOOLS/lib/d8.jar" com.android.tools.r8.D8 --lib "$ANDROID_JAR" --output "$tmp/dex" "$tmp"/obj/com/codex/adbime/*.class
+  "$BUILD_TOOLS/aapt" package -f -M "$tmp/AndroidManifest.xml" -S "$tmp/res" -I "$ANDROID_JAR" -F "$tmp/unsigned.apk"
+  (cd "$tmp/dex" && zip -q -r "$tmp/unsigned.apk" classes.dex)
+  "$keytool" -genkeypair -keystore "$tmp/debug.keystore" -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=Android Debug,O=Android,C=US' >/dev/null
+  "$BUILD_TOOLS/zipalign" -f 4 "$tmp/unsigned.apk" "$tmp/aligned.apk"
+  "$java" -jar "$BUILD_TOOLS/lib/apksigner.jar" sign --ks "$tmp/debug.keystore" --ks-pass pass:android --key-pass pass:android --out "$tmp/codex-adb-ime.apk" "$tmp/aligned.apk"
+  adb_cmd install -r "$tmp/codex-adb-ime.apk" >/dev/null
+  adb_cmd shell ime enable "$IME" >/dev/null
+  adb_cmd shell ime set "$IME" >/dev/null
+  echo "Installed and selected $IME on $DEVICE"
+}
+
+usage() {
+  cat <<EOF
+Usage: tavo-adb <command>
+
+Commands:
+  status                Show emulator, Tavo, and IME status
+  open                  Bring Tavo to foreground
+  dump                  Dump current UI XML, redacted
+  texts                 Print visible text/content descriptions, redacted
+  screenshot PATH       Save PNG screenshot
+  tap X Y               Tap coordinates
+  back                  Press Android back
+  text TEXT             Insert text through Codex ADB IME
+  set-ime               Select Codex ADB IME
+  install-ime           Build/install/select Codex ADB IME
+  logcat [N]            Print last N app logcat lines
+EOF
+}
+
+cmd="${1:-}"
+case "$cmd" in
+  status)
+    adb_cmd devices -l
+    adb_cmd shell dumpsys package "$PKG" | grep -E 'versionName|versionCode|firstInstallTime|lastUpdateTime|dataDir=' || true
+    adb_cmd shell dumpsys activity activities | grep -E 'topResumedActivity|ResumedActivity' || true
+    adb_cmd shell settings get secure default_input_method || true
+    ;;
+  open)
+    adb_cmd shell am start -n "$PKG/$ACTIVITY" >/dev/null
+    ;;
+  dump)
+    dump_xml | redact
+    ;;
+  texts)
+    visible_texts
+    ;;
+  screenshot)
+    [[ $# -ge 2 ]] || { usage; exit 2; }
+    adb_cmd exec-out screencap -p > "$2"
+    echo "$2"
+    ;;
+  tap)
+    [[ $# -ge 3 ]] || { usage; exit 2; }
+    adb_cmd shell input tap "$2" "$3"
+    ;;
+  back)
+    adb_cmd shell input keyevent 4
+    ;;
+  text)
+    [[ $# -ge 2 ]] || { usage; exit 2; }
+    adb_cmd shell ime set "$IME" >/dev/null || install_ime
+    adb_cmd shell am broadcast -a com.codex.adbime.INPUT_TEXT -p com.codex.adbime --es text "$2" >/dev/null
+    ;;
+  set-ime)
+    adb_cmd shell ime enable "$IME" >/dev/null || true
+    adb_cmd shell ime set "$IME"
+    ;;
+  install-ime)
+    install_ime
+    ;;
+  logcat)
+    n="${2:-120}"
+    adb_cmd shell logcat -d -t "$n" | redact
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

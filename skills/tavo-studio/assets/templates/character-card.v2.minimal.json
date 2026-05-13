@@ -1,0 +1,20 @@
+{
+  "spec": "chara_card_v2",
+  "spec_version": "2.0",
+  "data": {
+    "name": "角色名",
+    "description": "这里写角色的核心设定、身份、背景、外貌和必须长期保留在 prompt 中的信息。",
+    "personality": "这里写简短的人格摘要。",
+    "scenario": "这里写当前对话的背景、关系与情境。",
+    "first_mes": "这里写第一条消息。它会强烈影响角色后续说话风格。",
+    "mes_example": "<START>\n{{user}}: \"你是谁？\"\n{{char}}: \"这里写示例口吻。\"",
+    "creator_notes": "这里写作者备注、使用建议、版本说明。不要把必须稳定记住的核心设定只放在这里。",
+    "system_prompt": "",
+    "post_history_instructions": "",
+    "alternate_greetings": [],
+    "tags": [],
+    "creator": "",
+    "character_version": "1.0.0",
+    "extensions": {}
+  }
+}

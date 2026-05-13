@@ -1,0 +1,66 @@
+{
+  "name": "tavo-dev-kit",
+  "version": "0.1.0",
+  "description": "Local Tavo script and import-asset dev kit with mock tests, asset generation, and optional Android probes.",
+  "type": "module",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "bin": {
+    "tavo-dev-kit": "dist/lib/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js"
+    },
+    "./mock": {
+      "types": "./dist/lib/mock.d.ts",
+      "import": "./dist/lib/mock.js"
+    },
+    "./dev": {
+      "types": "./dev/tavo.d.ts",
+      "import": "./dev/tavo-dev.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "build:assets": "tsx src/cli.ts build:assets",
+    "build:widget": "tsx src/cli.ts build:widget",
+    "package:zip": "npm run build && npm run build:widget && node scripts/package-zip.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "verify:local": "npm run typecheck && npm test && npm run build && npm run build:assets && npm run package:zip && npm run check:release",
+    "probe:android": "tsx src/cli.ts probe:android",
+    "verify:all": "npm run verify:local && npm run probe:android"
+  },
+  "files": [
+    "dist/lib",
+    "dev",
+    "docs",
+    "examples",
+    "templates",
+    "README.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "keywords": [
+    "tavo",
+    "sdk",
+    "android",
+    "testing",
+    "advanced-rendering"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tavo Studio"
+  short_description: "Create and validate Tavo/ST cards, worldbooks, regex, presets, AR/JS scripts, and official Tavo capability boundaries"
+  default_prompt: "Use $tavo-studio as the single Tavo entrypoint for creation, official capability checks, Dev Kit-backed asset generation, and validation planning."
