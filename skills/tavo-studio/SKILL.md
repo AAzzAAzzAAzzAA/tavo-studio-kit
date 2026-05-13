@@ -1,6 +1,6 @@
 ---
 name: tavo-studio
-description: Create, configure, explain, and validate Tavo / SillyTavern character cards, worldbooks, presets, macros, regex, long memory, JS API scripts, advanced rendering, PNG-embedded cards, and Tavo official capability boundaries. Tavo has broad ST/CCv3 import compatibility, but import/create/update/rendering paths differ; verify exact formats from references/source before producing importable files. Use when the user asks about Tavo, ST, 角色卡, character card, worldbook, 世界书, lorebook, 预设, 正则, 长记忆, 高级前端渲染, JavaScript API, 宏, PNG card, 图片发送, 备份, 存储空间, 聊天快捷键, 群聊快捷发言, TTS, 语音, 负载均衡, load balancer, 端点管理, API 端点, 官方能力, SDK, Dev Kit, testing, verification, or any related creation/configuration/scripting/troubleshooting task.
+description: "创建、配置、解释和验证 Tavo / SillyTavern 角色卡、世界书、预设、正则、宏、长记忆、JavaScript API、高级前端渲染、PNG 角色卡和 Tavo 能力边界；也可配合 Dev Kit 做本地 mock、类型检查、资源生成和校验。"
 ---
 
 # Tavo Studio
@@ -121,9 +121,9 @@ Tavo 对 SillyTavern/CCv3 角色卡有较强导入兼容性，但不要把“能
 3. 有哪些已知限制
 4. 如果需要，再补充合理的组合建议
 
-### Tavo Dev Kit v1 实测能力（2026-05-13）
+### Tavo Dev Kit v1 能力（2026-05-13）
 
-这一节记录的是 Tavo Dev Kit 能力。它不是 Tavo 官方 SDK，也不要把它写成“官方已经提供的能力”。它的定位是：把 Tavo 可导入资源、本地 mock、类型检查和 JSON 校验串起来，让 AI 写出来的 Tavo 脚本和配置可以被重复测试。真实 App 验证是维护者可选的高级流程，不是普通用户默认工作流。
+这一节记录的是第三方 Dev Kit 能力。它的定位是：把 Tavo 可导入资源、本地 mock、类型检查和 JSON 校验串起来，让 AI 写出来的 Tavo 脚本和配置可以被重复测试。真实 App 验证是维护者可选的高级流程，不是普通用户默认工作流。
 
 #### 与本 skill 的关系
 
@@ -153,7 +153,7 @@ Tavo 对 SillyTavern/CCv3 角色卡有较强导入兼容性，但不要把“能
 
 #### 已验证的 Dev Kit 公开能力
 
-这些能力来自本机实现和测试，不代表官方 Tavo 直接提供这些 npm API：
+这些能力来自本仓库实现和测试，不代表 Tavo App 运行时会直接提供这些 npm API：
 
 - `TavoApi` 类型：覆盖变量、message、chat、character、persona、preset、lorebook、regex、memory、generate、input、utils、app version 等脚本常用面；scope 明确为 `chat | global`，不推荐伪造 `character` scope。
 - `createMockTavo()`：本地模拟 Tavo API，用来测试变量路径、chat/global scope、message API、资源 CRUD/import、memory、input、toast/export/select、app version、mock generate 等行为。
@@ -201,7 +201,7 @@ Tavo 对 SillyTavern/CCv3 角色卡有较强导入兼容性，但不要把“能
 
 #### 回答用户时的推荐说法
 
-- 可以说：“Dev Kit 不是官方 SDK，但它把 Tavo 文件生成、本地 mock、类型检查和 schema 校验自动化了。”
+- 可以说：“Dev Kit 是第三方辅助工具，它把 Tavo 文件生成、本地 mock、类型检查和 schema 校验自动化了。”
 - 可以说：“普通用户不需要模拟器；有设备环境的维护者可以额外跑真实 App 回归。”
 - 可以说：“现在最硬的日常价值是稳定本地检查：AI 写完后可以跑一遍，看脚本类型、mock 行为和生成文件格式有没有明显问题。”
 - 不要说：“SDK 等同 Tavo 运行时。”它只是 mock + 生成器 + 回归测试工具，真正行为仍以 Tavo App 实测为准。
@@ -422,7 +422,7 @@ node skills/tavo-studio/scripts/worldbook_to_character_book.mjs \
 本仓库 Dev Kit：
 
 - 路径：`dev-kit/`
-- 定位：本地生成器 + mock + JSON 校验，不是 Tavo 官方 SDK。真实 App probe 是维护者可选能力。
+- 定位：本地生成器 + mock + JSON 校验。真实 App probe 是维护者可选能力。
 - 适合：生成 Tavo 可导入文件、让 AI 写的脚本先过类型/单测、把输出格式先检查一遍。
 - 常用命令：
   - `npm run typecheck`

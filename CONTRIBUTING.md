@@ -1,10 +1,10 @@
-# Contributing
+# 贡献说明
 
-Thanks for helping improve Tavo Dev Kit.
+感谢你愿意改进 Tavo Studio Kit。
 
-This project is a community helper, not an official Tavo SDK. The main entry is `skills/tavo-studio`; `dev-kit/` is the auxiliary test and generation tool.
+这个仓库的主入口是 `skills/tavo-studio/`，`dev-kit/` 是辅助的本地检查和资源生成工具。
 
-## Development
+## 开发检查
 
 ```bash
 cd dev-kit
@@ -12,20 +12,24 @@ npm install
 npm run verify:local
 ```
 
-Use `npm run verify:all` from `dev-kit/` when you have an Android emulator with Tavo available.
+如果你已经有安卓模拟器和 Tavo，可以在 `dev-kit/` 里额外运行：
 
-## Pull Request Checklist
+```bash
+npm run verify:all
+```
 
-- Prefer official-style `tavo.*` examples for scripts that will be pasted into Tavo.
-- Keep `createTavoSDK()` as an optional local helper, not a required runtime dependency.
-- Add or update Vitest coverage for mock, schema, generator, or wrapper behavior.
-- Do not commit `.env.local`, private endpoint keys, private screenshots, or unredacted probe reports.
-- If a change claims real Tavo behavior, include Android probe evidence or clearly mark it as mock-only.
-- If Tavo changes a format or behavior, update README/docs and the probe expectations together.
-- Keep the public skill free of machine-specific absolute paths and private local references.
+## 提交前检查
 
-## Android Probe Safety
+- 放进 Tavo 的示例脚本优先直接使用 `tavo.*`。
+- `createTavoSDK()` 只作为本地开发辅助，不要让它成为 Tavo 运行时依赖。
+- 修改 mock、schema、生成器或包装层时，同步补测试。
+- 不要提交 `.env.local`、私有端点 key、私人截图或未脱敏报告。
+- 如果改动声称真实 Tavo 行为，最好提供真实 App 验证证据；没有证据时要标明只是本地 mock 或格式推断。
+- Tavo 格式或行为变化时，同时更新 README、docs 和测试预期。
+- 公开版 skill 不要包含本机绝对路径或私人文件引用。
 
-The probe may import test resources into the emulator. It should not clear app data, uninstall Tavo, restore backups, or directly edit the app database.
+## 可选真机验证安全规则
 
-Use the `codex-devkit-*` prefix for generated resources so test artifacts are easy to identify.
+真实 App probe 可能会导入测试资源。它不应该清空 App 数据、卸载 Tavo、恢复备份或直接编辑数据库。
+
+生成资源统一使用 `codex-devkit-*` 前缀，方便识别和复查。

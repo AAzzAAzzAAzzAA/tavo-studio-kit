@@ -1,7 +1,7 @@
 {
   "name": "tavo-studio-kit",
   "version": "0.1.0",
-  "description": "Skill-first unofficial Tavo Studio workflow with auxiliary Dev Kit validation.",
+  "description": "以 Tavo Studio skill 为主、Dev Kit 为辅的第三方创作与本地验证工具包。",
   "private": true,
   "type": "module",
   "license": "MIT",

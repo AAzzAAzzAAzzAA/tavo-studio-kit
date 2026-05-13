@@ -1,7 +1,7 @@
 {
   "name": "tavo-dev-kit",
   "version": "0.1.0",
-  "description": "Local Tavo script and import-asset dev kit with mock tests, asset generation, and optional Android probes.",
+  "description": "Tavo 脚本和可导入资源的本地开发工具，包含 mock 测试、资源生成和可选真机验证。",
   "type": "module",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",

@@ -1,13 +1,17 @@
-# Contributing
+# 贡献说明
 
-This folder contains the auxiliary TypeScript Dev Kit. The main repository entry is `../skills/tavo-studio`.
+这个目录是 TypeScript Dev Kit。仓库主入口在 `../skills/tavo-studio/`。
 
-Run local checks before changing SDK or probe behavior:
+修改 SDK、mock、schema、生成器或 probe 行为前，先跑本地检查：
 
 ```bash
 npm run verify:local
 ```
 
-Use `npm run verify:all` when an Android emulator with Tavo is available.
+如果你已经有安卓模拟器和 Tavo，可以额外运行：
 
-Do not commit `.env.local`, private endpoint keys, private screenshots, or unredacted probe reports.
+```bash
+npm run verify:all
+```
+
+不要提交 `.env.local`、私有端点 key、私人截图或未脱敏报告。

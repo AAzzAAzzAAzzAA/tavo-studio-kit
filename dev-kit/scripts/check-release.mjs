@@ -22,8 +22,8 @@ if (!pkg.license || pkg.license === "UNLICENSED") {
   fail("package.json must declare a shareable license");
 }
 
-if (!readme.toLowerCase().includes("not an official tavo sdk")) {
-  fail("README must clearly state this is not an official Tavo SDK");
+if (!readme.includes("第三方") && !readme.includes("辅助工具")) {
+  fail("README must clearly describe the package as a third-party/helper tool");
 }
 
 const ignoredDirs = new Set([".git", "node_modules", "dist", "reports"]);

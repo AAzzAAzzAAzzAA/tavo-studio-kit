@@ -1,4 +1,4 @@
 interface:
   display_name: "Tavo Studio"
-  short_description: "Create and validate Tavo/ST cards, worldbooks, regex, presets, AR/JS scripts, and official Tavo capability boundaries"
-  default_prompt: "Use $tavo-studio as the single Tavo entrypoint for creation, official capability checks, Dev Kit-backed asset generation, and validation planning."
+  short_description: "创建和校验 Tavo/ST 角色卡、世界书、正则、预设、AR/JS 脚本和能力边界"
+  default_prompt: "使用 $tavo-studio 作为 Tavo 创作入口，处理角色卡、世界书、预设、正则、AR/JS 脚本、本地资源生成和校验规划。"
