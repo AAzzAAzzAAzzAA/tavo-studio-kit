@@ -64,13 +64,6 @@ npm run build:assets
 
 普通用户不需要安卓模拟器。已有设备环境的维护者可以参考 [可选真机验证](docs/android-verification.md)。
 
-## 边界
-
-- skill 负责提供工作流和参考资料，本身不等于运行结果。
-- mock 是本地测试替身，不等于真实 Tavo App。
-- 本地检查能验证类型、mock、生成器和已知 schema；真实 App 行为需要额外验证。
-- 不要提交 `.env.local`、私有端点 key、私人聊天、未脱敏报告或截图。
-
 ## 文档
 
 - [可选真机验证](docs/android-verification.md)
