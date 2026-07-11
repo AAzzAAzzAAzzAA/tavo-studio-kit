@@ -1,0 +1,130 @@
+<section class="plugin-semantic-panel" data-plugin-semantic-panel="{{RUN_ID}}">
+  <style>
+    .plugin-semantic-panel {
+      box-sizing: border-box;
+      width: min(100%, 560px);
+      margin: 10px auto;
+      padding: 12px;
+      border: 1px solid #7b8794;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #202b33;
+      font-family: system-ui, sans-serif;
+    }
+    .plugin-semantic-panel h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+    .plugin-semantic-panel .plugin-marker {
+      margin: 0 0 10px;
+      color: #5c6770;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    .plugin-semantic-panel .plugin-panel-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+    .plugin-semantic-panel button {
+      min-height: 40px;
+      padding: 7px 9px;
+      border: 1px solid #68737d;
+      border-radius: 6px;
+      background: #f7f8fa;
+      color: #17202a;
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.25;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+    .plugin-semantic-panel button:focus-visible {
+      outline: 2px solid #0969da;
+      outline-offset: 2px;
+    }
+    .plugin-semantic-panel .plugin-panel-status {
+      min-height: 19px;
+      margin: 9px 0 0;
+      color: #334e68;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 420px) {
+      .plugin-semantic-panel .plugin-panel-actions {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+
+  <h3>插件语义验证</h3>
+  <p class="plugin-marker">TPG_PANEL_{{RUN_ID}} · {{PLUGIN_ID}}</p>
+  <div class="plugin-panel-actions">
+    <button type="button" data-action="observe">插件面板观察</button>
+    <button type="button" data-action="clarify">插件面板澄清</button>
+    <button type="button" data-action="state">插件面板状态</button>
+    <button type="button" data-action="plan">插件面板计划</button>
+    <button type="button" data-action="evidence">插件面板证据</button>
+  </div>
+  <p class="plugin-panel-status" role="status" aria-live="polite">等待操作</p>
+
+  <script>
+    (() => {
+      const script = document.currentScript;
+      const root = (script && script.closest('[data-plugin-semantic-panel="{{RUN_ID}}"]')) ||
+        document.querySelector('[data-plugin-semantic-panel="{{RUN_ID}}"]');
+      if (!root) return;
+      const status = root.querySelector('.plugin-panel-status');
+      const setAndRead = (key) => {
+        tavo.set(key, 'clicked', 'chat');
+        return tavo.get(key, 'chat');
+      };
+      const actions = {
+        observe: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.pluginPanel.observe');
+          await tavo.input.set(`请观察当前场景，指出三个可互动对象，并说明最先接触哪一个。（TPG_PANEL_{{RUN_ID}}_OBSERVE state=${state}）`);
+          return `TPG_PANEL_{{RUN_ID}}_OBSERVE state=${state}`;
+        },
+        clarify: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.pluginPanel.clarify');
+          await tavo.input.append(` 请确认我真正想解决的问题，并只追问一个会改变方案的关键条件。（TPG_PANEL_{{RUN_ID}}_CLARIFY state=${state}）`);
+          return `TPG_PANEL_{{RUN_ID}}_CLARIFY state=${state}`;
+        },
+        state: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.pluginPanel.state');
+          await tavo.input.set(`请把当前状态整理为已知事实、未知信息和待验证假设三部分。（TPG_PANEL_{{RUN_ID}}_STATE state=${state}）`);
+          return `TPG_PANEL_{{RUN_ID}}_STATE state=${state}`;
+        },
+        plan: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.pluginPanel.plan');
+          await tavo.input.append(` 请提出一个可以立即执行的下一步，并补充失败后的替代路线。（TPG_PANEL_{{RUN_ID}}_PLAN state=${state}）`);
+          return `TPG_PANEL_{{RUN_ID}}_PLAN state=${state}`;
+        },
+        evidence: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.pluginPanel.evidence');
+          await tavo.input.set(`请总结本轮最有价值的五条证据，并标明每条证据支持什么结论。（TPG_PANEL_{{RUN_ID}}_EVIDENCE state=${state}）`);
+          return `TPG_PANEL_{{RUN_ID}}_EVIDENCE state=${state}`;
+        }
+      };
+
+      root.addEventListener('click', async (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button || !root.contains(button)) return;
+        const action = actions[button.dataset.action];
+        if (!action) return;
+        button.disabled = true;
+        status.textContent = '正在写入输入框';
+        try {
+          const marker = await action();
+          status.textContent = `已写入 ${marker}`;
+        } catch (error) {
+          status.textContent = `失败：${error && error.message ? error.message : String(error)}`;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</section>

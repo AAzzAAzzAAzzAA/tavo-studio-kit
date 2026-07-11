@@ -1,0 +1,53 @@
+{
+  "id": "{{PLUGIN_ID}}",
+  "name": "Semantic Validation Plugin {{RUN_ID}}",
+  "version": "1.0.0",
+  "specVersion": 1,
+  "minAppVersion": "0.92.0",
+  "author": "Codex",
+  "description": "Five semantic input actions, two EJS runtime probes, and a live HTML validation panel.",
+  "permissions": [
+    "input",
+    "variable"
+  ],
+  "entry": "entry.js",
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "observe-scene",
+        "label": "观察场景 {{RUN_ID}}"
+      },
+      {
+        "id": "clarify-goal",
+        "label": "澄清目标 {{RUN_ID}}"
+      },
+      {
+        "id": "check-state",
+        "label": "核对状态 {{RUN_ID}}"
+      },
+      {
+        "id": "propose-next-step",
+        "label": "规划下一步 {{RUN_ID}}"
+      },
+      {
+        "id": "summarize-evidence",
+        "label": "汇总证据 {{RUN_ID}}"
+      },
+      {
+        "id": "ejs-runtime-seed",
+        "label": "EJS 随机写入 {{RUN_ID}}"
+      },
+      {
+        "id": "ejs-runtime-probe",
+        "label": "EJS 状态回读 {{RUN_ID}}"
+      }
+    ],
+    "htmlFragments": [
+      {
+        "id": "semantic-validation-panel",
+        "src": "ui/panel.html",
+        "mount": "/chat/body/end"
+      }
+    ]
+  }
+}

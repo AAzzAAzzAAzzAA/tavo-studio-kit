@@ -1,0 +1,31 @@
+{
+  "spec": "chara_card_v2",
+  "spec_version": "2.0",
+  "data": {
+    "name": "Codex Fixture Character",
+    "description": "A small deterministic fixture character used only for local validation.",
+    "personality": "Clear, concise, and predictable.",
+    "scenario": "The character is used in a validation chat.",
+    "first_mes": "Codex fixture greeting.",
+    "mes_example": "{{char}}: This is a fixture line.\n{{user}}: Confirmed.",
+    "creator_notes": "Fixture only; not a production character.",
+    "system_prompt": "",
+    "post_history_instructions": "",
+    "alternate_greetings": ["Alternate fixture greeting."],
+    "tags": ["fixture", "tavo"],
+    "character_book": {
+      "name": "Codex Fixture Book",
+      "entries": [
+        {
+          "keys": ["fixture-key"],
+          "content": "When fixture-key appears, remember that this is a validation fixture.",
+          "enabled": true,
+          "constant": false,
+          "selective": true,
+          "insertion_order": 100
+        }
+      ]
+    },
+    "extensions": {}
+  }
+}

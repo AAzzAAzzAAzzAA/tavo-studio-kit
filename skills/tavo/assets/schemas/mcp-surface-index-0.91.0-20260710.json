@@ -1,0 +1,983 @@
+{
+  "schemaVersion": "0.1.0",
+  "dumpedAt": "2026-07-09T16:32:20.359955+00:00",
+  "serverInfo": {
+    "name": "tavo",
+    "title": "Tavo",
+    "version": "0.91.0"
+  },
+  "summary": {
+    "serverInfo": {
+      "name": "tavo",
+      "title": "Tavo",
+      "version": "0.91.0"
+    },
+    "toolCount": 70,
+    "resourceCount": 18,
+    "resourceTemplateCount": 7,
+    "promptCount": 0,
+    "failedCalls": [],
+    "failedResourceReads": [],
+    "docReadStatus": {
+      "tavo://capabilities": "ok",
+      "tavo://docs/macros": "ok",
+      "tavo://docs/overview": "ok",
+      "tavo://docs/plugins": "ok",
+      "tavo://docs/tavojs": "ok",
+      "tavo://docs/tools": "ok",
+      "tavo://docs/write-safety": "ok",
+      "tavo://runtime": "ok",
+      "tavo://schemas/character": "ok",
+      "tavo://schemas/chat": "ok",
+      "tavo://schemas/lorebook": "ok",
+      "tavo://schemas/lorebook-entry": "ok",
+      "tavo://schemas/message": "ok",
+      "tavo://schemas/persona": "ok",
+      "tavo://schemas/preset": "ok",
+      "tavo://schemas/regex": "ok",
+      "tavo://schemas/regex-entry": "ok"
+    }
+  },
+  "tools": [
+    {
+      "name": "tavo_character_create",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "character",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_character_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_character_get",
+      "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "id"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_character_import_card",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "card",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_character_search",
+      "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_character_update",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "character",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_chat_copy",
+      "description": "Copy a Tavo chat through provider clone logic.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_chat_create",
+      "description": "Create a Tavo chat from character/persona ids.",
+      "risk": "write",
+      "argumentKeys": [
+        "chat",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_chat_delete",
+      "description": "Delete a Tavo chat through provider cleanup.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_chat_get",
+      "description": "Read one Tavo chat by id.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "id",
+        "includeMessages"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_chat_reset",
+      "description": "Reset a Tavo chat messages/state.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_chat_search",
+      "description": "Search Tavo chats by display title.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_chat_update",
+      "description": "Update chat metadata, members, and overrides.",
+      "risk": "write",
+      "argumentKeys": [
+        "chat",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_current_chat_get",
+      "description": "Read the current active Tavo chat.",
+      "risk": "read-or-validate",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_current_chat_set",
+      "description": "Set the current active Tavo chat.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_input_append",
+      "description": "Append text to the current active chat input box.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "text"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_input_clear",
+      "description": "Clear the current active chat input box.",
+      "risk": "destructive",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_input_get",
+      "description": "Read the current active chat input box text.",
+      "risk": "read-or-validate",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_input_send",
+      "description": "Send the current active chat input box through the normal UI chat flow.",
+      "risk": "write",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_input_set",
+      "description": "Replace the current active chat input box text.",
+      "risk": "write",
+      "argumentKeys": [
+        "text"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_lorebook_create",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "lorebook"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_lorebook_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_lorebook_entry_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "identifier",
+        "lorebookId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_lorebook_entry_upsert",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "entry",
+        "expectedRevision",
+        "lorebookId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_lorebook_get",
+      "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "id"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_lorebook_import",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "lorebook"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_lorebook_search",
+      "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_lorebook_update",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "lorebook"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_message_append",
+      "description": "Append a message to a Tavo chat.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "chatId",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "message"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_message_count",
+      "description": "Count messages in a Tavo chat.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "chatId"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_message_delete",
+      "description": "Delete a message by stable id or index.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "chatId",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "index"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_message_find",
+      "description": "Find messages in a Tavo chat.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "chatId",
+        "filter",
+        "range"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_message_get",
+      "description": "Read one message by stable id or drifting index. Id wins.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "chatId",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "index"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_message_insert",
+      "description": "Insert a message at a chat index.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "chatId",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "index",
+        "message"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_message_update",
+      "description": "Update a message by stable id or index.",
+      "risk": "write",
+      "argumentKeys": [
+        "chatId",
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "message"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_persona_create",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "persona"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_persona_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_persona_get",
+      "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "id"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_persona_search",
+      "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_persona_set_active",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_persona_update",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "persona"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_get",
+      "description": "Read one installed Tavo plugin, including manifest and config.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "pluginId"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_plugin_get_runtime_contributions",
+      "description": "List enabled plugin runtime contributions exposed to Tavo.",
+      "risk": "read-or-validate",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_plugin_install",
+      "description": "Install a Tavo plugin from zipBase64 or a local zipPath.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "zipBase64",
+        "zipPath"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_package",
+      "description": "Package plugin source files into an installable zip.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "files",
+        "includeZipBase64",
+        "outputPath",
+        "sourcePath"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_reset_config",
+      "description": "Reset one plugin configuration to manifest defaults.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "pluginId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_search",
+      "description": "Search installed Tavo plugins by id, name, or description.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_plugin_set_config",
+      "description": "Set one plugin configuration value.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "key",
+        "pluginId",
+        "value"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_set_enabled",
+      "description": "Enable or disable an installed plugin.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "enabled",
+        "pluginId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_uninstall",
+      "description": "Uninstall an installed Tavo plugin.",
+      "risk": "write",
+      "argumentKeys": [
+        "dryRun",
+        "pluginId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_plugin_validate_manifest",
+      "description": "Validate a plugin manifest object before packaging or installing.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "manifest"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_preset_create",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "preset"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_entry_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "identifier",
+        "presetId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_entry_upsert",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "entry",
+        "expectedRevision",
+        "presetId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_get",
+      "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+      "risk": "write",
+      "argumentKeys": [
+        "id"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_preset_import",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "preset"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_search",
+      "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+      "risk": "write",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_preset_set_active",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_preset_update",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "preset"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_create",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "regex"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_entry_delete",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "destructive",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "identifier",
+        "regexId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_entry_upsert",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "entry",
+        "expectedRevision",
+        "regexId"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_get",
+      "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+      "risk": "read-or-validate",
+      "argumentKeys": [
+        "id"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_regex_import",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "regex"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_regex_search",
+      "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "cursor",
+        "limit",
+        "match",
+        "query"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_regex_test",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "unknown",
+      "argumentKeys": [
+        "caseSensitive",
+        "findRegex",
+        "input",
+        "replaceString"
+      ],
+      "hasDryRunArgument": false
+    },
+    {
+      "name": "tavo_regex_update",
+      "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+      "risk": "write",
+      "argumentKeys": [
+        "clientRequestId",
+        "dryRun",
+        "expectedRevision",
+        "id",
+        "regex"
+      ],
+      "hasDryRunArgument": true
+    },
+    {
+      "name": "tavo_status",
+      "description": "Return Tavo MCP server status and data-library asset counts.",
+      "risk": "read-or-validate",
+      "argumentKeys": [],
+      "hasDryRunArgument": false
+    }
+  ],
+  "resources": [
+    {
+      "uri": "tavo://capabilities",
+      "name": "capabilities",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://current-chat",
+      "name": "current-chat",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://docs/macros",
+      "name": "macros",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://docs/overview",
+      "name": "overview",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://docs/plugins",
+      "name": "plugins",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://docs/tavojs",
+      "name": "tavojs",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://docs/tools",
+      "name": "tools",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://docs/write-safety",
+      "name": "write-safety",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "tavo://runtime",
+      "name": "runtime",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/character",
+      "name": "character",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/chat",
+      "name": "chat",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/lorebook",
+      "name": "lorebook",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/lorebook-entry",
+      "name": "lorebook-entry",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/message",
+      "name": "message",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/persona",
+      "name": "persona",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/preset",
+      "name": "preset",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/regex",
+      "name": "regex",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "tavo://schemas/regex-entry",
+      "name": "regex-entry",
+      "mimeType": "application/json"
+    }
+  ],
+  "resourceTemplates": [
+    {
+      "uriTemplate": "tavo://characters/{id}",
+      "name": "character",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://chats/{id}",
+      "name": "chat",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://chats/{id}/messages",
+      "name": "chat-messages",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://lorebooks/{id}",
+      "name": "lorebook",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://personas/{id}",
+      "name": "persona",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://presets/{id}",
+      "name": "preset",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "tavo://regexes/{id}",
+      "name": "regex",
+      "mimeType": "application/json"
+    }
+  ],
+  "resourceReadStatus": {
+    "tavo://capabilities": "ok",
+    "tavo://docs/macros": "ok",
+    "tavo://docs/overview": "ok",
+    "tavo://docs/plugins": "ok",
+    "tavo://docs/tavojs": "ok",
+    "tavo://docs/tools": "ok",
+    "tavo://docs/write-safety": "ok",
+    "tavo://runtime": "ok",
+    "tavo://schemas/character": "ok",
+    "tavo://schemas/chat": "ok",
+    "tavo://schemas/lorebook": "ok",
+    "tavo://schemas/lorebook-entry": "ok",
+    "tavo://schemas/message": "ok",
+    "tavo://schemas/persona": "ok",
+    "tavo://schemas/preset": "ok",
+    "tavo://schemas/regex": "ok",
+    "tavo://schemas/regex-entry": "ok"
+  }
+}

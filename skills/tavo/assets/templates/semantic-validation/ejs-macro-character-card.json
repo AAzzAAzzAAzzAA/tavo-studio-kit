@@ -1,0 +1,26 @@
+{
+  "spec": "chara_card_v2",
+  "spec_version": "2.0",
+  "data": {
+    "name": "Semantic EJS Validator {{RUN_ID}}",
+    "description": "<% setvar(\"semantic.{{RUN_ID}}.ejs.seed\", \"SET_{{RUN_ID}}\") %><% incvar(\"semantic.{{RUN_ID}}.ejs.renderCount\") %><% var branch = getvar(\"semantic.{{RUN_ID}}.ejs.branch\", \"alpha\") %>\n[EJS-EXTERNAL:{{RUN_ID}}]=<%- getvar(\"semantic.{{RUN_ID}}.ejs.external\", \"EJS_EXTERNAL_MISSING\") %>\n[EJS-SET-GET:{{RUN_ID}}]=<%- getvar(\"semantic.{{RUN_ID}}.ejs.seed\", \"SET_FAILED\") %>\n[EJS-DEFAULT:{{RUN_ID}}]=<%- getvar(\"semantic.{{RUN_ID}}.ejs.missing\", \"DEFAULT_{{RUN_ID}}\") %>\n<% if (branch === \"alpha\") { %>[EJS-CONDITION:{{RUN_ID}}]=ALPHA<% } else { %>[EJS-CONDITION:{{RUN_ID}}]=OTHER<% } %>\n[EJS-LOOP:{{RUN_ID}}]=<% for (var i = 1; i <= 3; i++) { %><%= i %><% if (i < 3) { %>,<% } %><% } %>\n[EJS-INC:{{RUN_ID}}]=<%- getvar(\"semantic.{{RUN_ID}}.ejs.renderCount\", 0) %>\n[EJS-TO-MACRO:{{RUN_ID}}]=<%- \"{{char}}\" %>|<%- \"{{user}}\" %>",
+    "personality": "Calm, precise, and cooperative. The character answers naturally after preserving validation markers exactly.",
+    "scenario": "[MACRO-SET:{{RUN_ID}}]{{setvar::macro_{{RUN_ID}}_state::ready}}\n[MACRO-INC:{{RUN_ID}}]{{incvar::macro_{{RUN_ID}}_count}}\n[MACRO-GET:{{RUN_ID}}]state={{getvar::macro_{{RUN_ID}}_state}};count={{getvar::macro_{{RUN_ID}}_count}}",
+    "first_mes": "<% setvar(\"semantic.{{RUN_ID}}.ejs.greeting\", \"VISIBLE_{{RUN_ID}}\") %>[EJS-CARD-VISIBLE:{{RUN_ID}}] greeting=<%- getvar(\"semantic.{{RUN_ID}}.ejs.greeting\", \"VISIBLE_FAILED\") %>; character=<%- \"{{char}}\" %>; user=<%- \"{{user}}\" %>. 我已准备好进行语义验证，请给我一个需要认真回答的问题。",
+    "mes_example": "{{user}}: 请核对语义验证标记。\n{{char}}: [EJS-CARD-{{RUN_ID}}] 标记已核对，我会继续自然回答。",
+    "creator_notes": "Replace {{RUN_ID}} before import. Expected deterministic evidence includes EJS set/get/default/condition/loop/inc markers, EJS-produced {{char}} and {{user}} macros, plus direct macro set/inc/get output.",
+    "system_prompt": "For each reply, start with exactly [EJS-CARD-{{RUN_ID}}]. Then answer the user naturally in Chinese. Preserve any rendered EJS and macro validation facts supplied in the prompt; never print raw EJS tags.",
+    "post_history_instructions": "Before answering, use these rendered macro values as validation context: state={{getvar::macro_{{RUN_ID}}_state}}; count={{getvar::macro_{{RUN_ID}}_count}}. Keep the exact reply prefix [EJS-CARD-{{RUN_ID}}].",
+    "alternate_greetings": [
+      "<% var fallback = getvar(\"semantic.{{RUN_ID}}.ejs.neverSet\", \"ALT_DEFAULT_{{RUN_ID}}\") %>[EJS-ALT-DEFAULT:{{RUN_ID}}]=<%- fallback %>. 请发送一个问题来继续验证。"
+    ],
+    "tags": [
+      "tavo",
+      "semantic-validation",
+      "ejs",
+      "macros",
+      "{{RUN_ID}}"
+    ],
+    "extensions": {}
+  }
+}

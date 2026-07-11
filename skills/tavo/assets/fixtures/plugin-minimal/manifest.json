@@ -1,0 +1,25 @@
+{
+  "id": "codex.validation.fixture",
+  "name": "Codex Validation Fixture Plugin",
+  "version": "0.1.0",
+  "specVersion": 1,
+  "author": "Codex",
+  "description": "Fixture plugin manifest for local validation only.",
+  "permissions": ["input"],
+  "entry": "entry.js",
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "fixture-ping",
+        "label": "Codex Fixture Ping"
+      }
+    ],
+    "htmlFragments": [
+      {
+        "id": "fixture-panel",
+        "src": "ui/panel.html",
+        "mount": "/chat/body/end"
+      }
+    ]
+  }
+}

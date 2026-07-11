@@ -1,0 +1,6 @@
+{
+  "id": "codex.validation.nested",
+  "name": "Codex Single Wrapper Fixture",
+  "version": "0.92.0",
+  "entry": "entry.js"
+}

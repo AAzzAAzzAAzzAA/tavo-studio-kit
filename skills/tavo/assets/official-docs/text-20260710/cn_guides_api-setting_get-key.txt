@@ -1,0 +1,85 @@
+API 账号注册及密钥获取
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+API
+密钥、供应商和模型
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+获取密钥
+Volink API
+OpenAI API
+Claude API
+Gemini API
+DeepSeek API
+OpenRouter API
+豆包/火山云/字节跳动API密钥获取
+“自定义（OpenAI 协议）”功能说明与使用指南
+API 设置
+模型设置
+常见错误及解决方法
+角色
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+API 账号注册及密钥获取
+用户手册
+API 与模型
+复制本页
+API 账号注册及密钥获取
+想要体验各类强大的AI模型服务？首先需要在相关平台注册账号，然后获取API密钥来调用模型接口、连接应用、运行对话等操作。
+本页面为你汇总了主流大模型平台的账号注册和API密钥获取完整教程，覆盖海内外热门平台，步骤详实，小白也能轻松上手。
+👇 在下方选择你感兴趣的平台，查看对应的完整使用流程：
+Volink API 账号密钥获取
+Gemini API 账号密钥获取
+(Google AI Studio)
+Claude API 账号密钥获取
+(Anthropic)
+DeepSeek（深度求索官方） API 账号密钥获取
+OpenAI API 账号密钥获取
+豆包/火山/字节跳动 API 账号密钥获取
+(内含 DeepSeek)
+OpenRouter API 账号密钥获取
+（更多模型平台申请指引，可邮件询问客服
+[email protected]
+，或在
+Tavo Discord
+社区中提问）
+API
+**1. 获取API密钥** - API 账号注册及密钥获取
+Volink API
+想要使用 Volink 平台的AI模型能力，整个过程主要分为两步：
+目录
+API 账号注册及密钥获取

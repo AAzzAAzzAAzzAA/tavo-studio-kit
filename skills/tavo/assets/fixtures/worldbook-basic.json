@@ -1,0 +1,24 @@
+{
+  "name": "Codex Fixture Worldbook",
+  "description": "A minimal worldbook fixture with one trigger and one constant entry.",
+  "entries": [
+    {
+      "keys": ["codex-fixture-trigger"],
+      "comment": "triggered fact",
+      "content": "The phrase codex-fixture-trigger should inject this validation fact.",
+      "enabled": true,
+      "constant": false,
+      "selective": true,
+      "order": 100
+    },
+    {
+      "keys": [],
+      "comment": "constant fact",
+      "content": "This constant fixture fact is used to test import normalization.",
+      "enabled": true,
+      "constant": true,
+      "selective": false,
+      "order": 200
+    }
+  ]
+}

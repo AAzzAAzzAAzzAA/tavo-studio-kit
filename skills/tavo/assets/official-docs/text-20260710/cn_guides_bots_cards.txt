@@ -1,0 +1,72 @@
+角色卡URL导入
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+角色
+创建角色和导入角色卡
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+角色
+自建角色
+角色卡 URL 导入
+janitorai.com
+chub.ai
+aicharactercards.com
+pygmalion.chat
+realm.risuai.net
+角色卡文件导入
+用户身份
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+角色卡URL导入
+用户手册
+角色
+复制本页
+角色卡URL导入
+一键导入角色卡，体验更多精彩AI角色
+想快速体验别人的优质角色设定？角色卡URL导入功能让你无需手动创建，只需一个链接，即可将他人分享的角色卡添加到你的系统中，立即开启对话。 本页面为你整理了支持URL导入的平台列表，并附上详细导入教程，帮助你快速上手，玩转各类精彩AI角色。 👇 选择你使用的平台，查看对应导入方式：
+aicharactercards.com
+chub.ai
+janitorai.com
+pygmalion.chat
+realm.risuai.net
+Post-History Instructions
+**这是干嘛的？**
+janitorai.com
+在网页上找到自己喜欢的角色
+目录
+角色卡URL导入
+一键导入角色卡，体验更多精彩AI角色

@@ -1,0 +1,16 @@
+{
+  "id": "codex.validation.legacy",
+  "name": "Codex Legacy Entry Fixture",
+  "version": "0.91.0",
+  "scripts": {
+    "actions": "legacy-actions.js"
+  },
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "legacy-marker",
+        "label": "Legacy Marker"
+      }
+    ]
+  }
+}

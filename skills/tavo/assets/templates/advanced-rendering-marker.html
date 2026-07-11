@@ -1,0 +1,32 @@
+<div class="codex-tavo-marker" data-tavo-widget="codex-marker">
+  <p>CODEx_TAVO_RENDER_MARKER</p>
+  <button type="button" data-action="append" data-text="Codex render button clicked">Append marker</button>
+</div>
+<style>
+  .codex-tavo-marker {
+    border: 1px solid #2f7d6d;
+    padding: 8px;
+    background: #f7fbf9;
+    color: #153d35;
+  }
+  .codex-tavo-marker button {
+    border: 1px solid #2f7d6d;
+    background: #ffffff;
+    color: #153d35;
+    padding: 6px 8px;
+  }
+</style>
+<script>
+(() => {
+  const root = document.currentScript.closest('[data-tavo-widget="codex-marker"]') || document;
+  root.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-action="append"]');
+    if (!button) return;
+    const text = button.getAttribute('data-text') || '';
+    const api = globalThis.tavo;
+    if (api && api.input && typeof api.input.append === 'function') {
+      await api.input.append(text);
+    }
+  });
+})();
+</script>

@@ -1,0 +1,6 @@
+{
+  "id": "codex.validation.missing-entry",
+  "name": "Codex Missing Entry Fixture",
+  "version": "0.92.0",
+  "entry": "missing-entry.js"
+}

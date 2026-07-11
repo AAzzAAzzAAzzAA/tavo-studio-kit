@@ -1,0 +1,35 @@
+{
+  "id": "codex.validation.minimal",
+  "name": "Codex Validation Minimal",
+  "version": "0.1.0",
+  "specVersion": 1,
+  "author": "Codex",
+  "description": "Minimal disposable plugin package for Tavo validation.",
+  "permissions": ["input"],
+  "entry": "entry.js",
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "insert-marker",
+        "label": "Insert Marker"
+      }
+    ],
+    "htmlFragments": [
+      {
+        "id": "marker-panel",
+        "src": "ui/panel.html",
+        "mount": "/chat/body/end"
+      }
+    ],
+    "settings": {
+      "schema": [
+        {
+          "key": "enabled",
+          "type": "switch",
+          "label": "Enabled",
+          "default": true
+        }
+      ]
+    }
+  }
+}

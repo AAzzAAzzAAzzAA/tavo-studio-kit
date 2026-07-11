@@ -1,0 +1,98 @@
+Gemini 账号注册和获取 API 密钥指南
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+语音
+语音 API 和 TTS
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+角色
+聊天
+语音与生图
+获取语音 API 密钥
+Volink 账号注册和获取 API 密钥指南
+ElevenLabs 账号注册和获取 API 密钥指南
+Gemini 账号注册和获取 API 密钥指南
+语音 API 设置
+角色语音绑定
+语音设置
+生图 API 设置
+生图设置
+本地 TTS 服务
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+Gemini 账号注册和获取 API 密钥指南
+用户手册
+语音与生图
+获取语音 API 密钥
+复制本页
+Gemini 账号注册和获取 API 密钥指南
+想要使用 Gemini 平台的AI模型能力，整个过程主要分为两步：
+首先，在 Gemini 平台注册一个账号；
+其次，在账号内创建并保管好你的语音 API 密钥。
+以下是 Gemini 平台的完整入门流程。指引遵循“先注册，后取钥”的逻辑，带你从零开始，轻松上手。
+1. 个人 Google 账号注册方式与流程
+入口：
+访问
+gemini.google.com
+，右上角点击 Sign in，选择个人 Google 账号（Gmail 或其他个人邮箱创建的 Google 账号）进行登录。
+验证与年龄要求：
+录后即完成账号创建，无需额外设置；使用个人账号时，用户需年满 13 岁（或所在国家/地区的法定年龄），且不支持受 Family Link 管理的账号。
+2. 工作/学校 Google 账号注册
+工作账号
+企业或组织用户可使用 Google Workspace（原 G Suite）账号登录 Gemini，无需额外注册流程。
+使用企业账号时，需由管理员在 Workspace 管理后台启用 “Gemini Apps” 权限，且用户年龄需满 18 岁（或法定成年年龄）。
+学校账号
+若学校（教育机构）已为 Google Workspace for Education 启用 Gemini 访问，学生可使用其 学校 Google 账号 登录。
+使用学校账号时，用户需年满 13 岁（或所在国家/地区的法定年龄），且服务需由机构管理员在 Google 管理控制台中开启。
+3. 获取 API 密钥
+访问Google AI Studio控制台，使用您的Google账户登录：
+https://aistudio.google.com
+点击左侧蓝色按钮获取API
+点击右侧蓝色按钮创建API
+如果您是首次使用，需要创建一个新项目或选择现有项目并同意相关服务条款和政策。
+生成API密钥后，复制并安全保存
+访问 TTS 功能
+在 Google AI Studio 中选择「生成媒体」标签页中的「语音生成」来访问 TTS 功能
+直接访问链接：
+https://aistudio.google.com/generate-speech
+ElevenLabs 账号注册和获取 API 密钥指南
+想要使用 ElevenLabs 平台的语音能力，整个过程主要分为两步：
+语音 API 设置
+**操作路径**
+目录
+Gemini 账号注册和获取 API 密钥指南
+1. 个人 Google 账号注册方式与流程
+2. 工作/学校 Google 账号注册
+3. 获取 API 密钥

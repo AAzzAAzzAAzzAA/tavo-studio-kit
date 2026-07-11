@@ -1,0 +1,73 @@
+janitorai.com
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+角色
+创建角色和导入角色卡
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+角色
+自建角色
+角色卡 URL 导入
+janitorai.com
+chub.ai
+aicharactercards.com
+pygmalion.chat
+realm.risuai.net
+角色卡文件导入
+用户身份
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+janitorai.com
+用户手册
+角色
+角色卡 URL 导入
+复制本页
+janitorai.com
+进入网站：
+janitorai.com
+在网页上找到自己喜欢的角色
+点击进入角色卡页面
+页面链接为URL角色导入链接，点击链接可看到完整链接
+复制此链接
+粘贴到Tavo的URL角色导入输入框内点击“导入”（注：部份导入失败原因可能是角色属于私人角色，没有授权给平台导致）
+即可完成导入。（注：部份导入失败原因可能是角色属于私人角色，没有授权给平台导致）
+角色卡URL导入
+aicharactercards.com chub.ai janitorai.com pygmalion.chat realm.risuai.net
+chub.ai
+在网页上找到自己喜欢的角色
+目录
+janitorai.com

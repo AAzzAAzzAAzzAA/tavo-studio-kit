@@ -1,0 +1,24 @@
+{
+  "name": "Codex Regex Cleanup Fixture",
+  "rules": [
+    {
+      "id": "remove-ai-aside",
+      "pattern": "\\s*【AI:[^】]+】",
+      "replacement": "",
+      "flags": "g",
+      "enabled": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "removes-aside",
+      "input": "她点头。 \u3010AI: internal note\u3011",
+      "expected": "她点头。"
+    },
+    {
+      "id": "leaves-normal-text",
+      "input": "她点头，没有系统旁白。",
+      "expected": "她点头，没有系统旁白。"
+    }
+  ]
+}

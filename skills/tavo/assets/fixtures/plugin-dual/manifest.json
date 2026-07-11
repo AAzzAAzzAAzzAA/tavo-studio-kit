@@ -1,0 +1,17 @@
+{
+  "id": "codex.validation.dual",
+  "name": "Codex Dual Entry Fixture",
+  "version": "0.92.0",
+  "entry": "entry.js",
+  "scripts": {
+    "actions": "ignored-missing-legacy.js"
+  },
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "dual-marker",
+        "label": "Dual Entry Marker"
+      }
+    ]
+  }
+}

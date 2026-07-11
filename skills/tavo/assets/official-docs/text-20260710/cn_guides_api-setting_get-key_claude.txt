@@ -1,0 +1,96 @@
+Claude API
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+API
+密钥、供应商和模型
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+获取密钥
+Volink API
+OpenAI API
+Claude API
+Gemini API
+DeepSeek API
+OpenRouter API
+豆包/火山云/字节跳动API密钥获取
+“自定义（OpenAI 协议）”功能说明与使用指南
+API 设置
+模型设置
+常见错误及解决方法
+角色
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+Claude API
+用户手册
+API 与模型
+获取密钥
+复制本页
+Claude API
+想要使用 Claude 平台的AI模型能力，整个过程主要分为两步：
+首先，在 Claude 平台注册一个账号；
+其次，在账号内创建并保管好你的 API 密钥。
+以下是 Claude 平台的完整入门流程。指引遵循“先注册，后取钥”的逻辑，带你从零开始，轻松上手。
+1.电子邮箱 + 密码注册
+用户可在 claude.ai 官网选择“Continue with email”进行注册：
+1.访问
+https://claude.ai
+并点击“Continue with email”。
+2.输入有效的邮箱地址、设置密码及姓名等信息，点击“Create Account”。
+3.登录邮箱，点击 Claude 发送的验证链接完成邮箱验证。
+4.验证完成后即可进入 Claude 界面开始使用。
+特点：
+无需依赖第三方账户，一次完成即可用但仍需非中国内地手机号验证。
+2.Google 账号一键登录
+在注册页点击 “Continue with Google”，通过 Google OAuth 完成授权即可：
+如使用该方式首次注册，系统会自动创建关联邮箱的 Claude 账号。
+此后仅能通过同一 Google 账户登录，无法再用邮箱+密码或其他 OAuth 入口登录。
+优势：
+不需手动填写邮箱验证码，省去繁琐步骤；适合已有 Google 生态的用户但仍需非中国内地手机号验证。
+3. 获取 API 密钥
+Claude：
+https://www.anthropic.com/api
+访问Anthropic的官方网站注册一个账户或登录您现有的账户。申请API访问权限。
+填写支付信息并获得批准后，您将收到API密钥
+OpenAI API
+想要使用 OpenAI 平台的AI模型能力，整个过程主要分为两步：
+Gemini API
+想要使用 Gemini 平台的AI模型能力，整个过程主要分为两步：
+目录
+Claude API
+1.电子邮箱 + 密码注册
+2.Google 账号一键登录
+3. 获取 API 密钥

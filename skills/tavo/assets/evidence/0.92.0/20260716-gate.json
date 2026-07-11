@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "0.1.0",
+  "capturedAt": "2026-07-16T20:32:00+08:00",
+  "scope": "read-only ADB and Tavo MCP implementation gate",
+  "device": {
+    "serial": "<redacted-device>",
+    "state": "device",
+    "model": "24129PN74C",
+    "androidRelease": "16"
+  },
+  "application": {
+    "packageName": "app.bitbear.tav",
+    "versionName": "0.92.0",
+    "versionCode": 920,
+    "runningProcessConfirmed": true
+  },
+  "mcp": {
+    "serverInfo": {
+      "name": "tavo",
+      "title": "Tavo",
+      "version": "0.92.0"
+    },
+    "requestedProtocolVersion": "2025-06-18",
+    "negotiatedProtocolVersion": "2025-06-18",
+    "topLevelReads": {
+      "initialize": "ok",
+      "tools/list": "ok",
+      "resources/list": "ok",
+      "resources/templates/list": "ok",
+      "prompts/list": "ok"
+    },
+    "counts": {
+      "tools": 70,
+      "resources": 18,
+      "resourceTemplates": 7,
+      "prompts": 0
+    },
+    "selectedResourceReads": {
+      "attempted": 17,
+      "succeeded": 17,
+      "failed": 0
+    },
+    "tavoStatusToolCall": {
+      "ok": true
+    },
+    "authorization": "<redacted>"
+  },
+  "preservedUserState": {
+    "privateChatIdentityIncluded": false,
+    "messageCount": 3,
+    "inputText": ""
+  },
+  "claims": [
+    "ADB and MCP transport gates passed.",
+    "This evidence does not by itself prove new 0.92 plugin hook, TTS, ASR, theme, backup, or WebView semantics."
+  ],
+  "sourceArtifacts": [
+    "assets/schemas/mcp-surface-0.92.0-20260716.json",
+    "assets/schemas/mcp-surface-index-0.92.0-20260716.json"
+  ]
+}

@@ -1,9 +1,0 @@
-node_modules/
-dist/
-reports/
-.env*
-!.env.example
-*.log
-*.tgz
-coverage/
-.DS_Store

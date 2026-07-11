@@ -1,0 +1,3262 @@
+{
+  "dumped_at": "2026-07-16T12:28:37.780532+00:00",
+  "requested_protocol_version": "2025-06-18",
+  "endpoint": {
+    "url": "<redacted-mcp-endpoint>",
+    "auth": "<redacted>"
+  },
+  "calls": {
+    "initialize": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": {
+            "listChanged": false
+          },
+          "resources": {
+            "subscribe": false,
+            "listChanged": false
+          },
+          "prompts": {
+            "listChanged": false
+          }
+        },
+        "serverInfo": {
+          "name": "tavo",
+          "title": "Tavo",
+          "version": "0.92.0"
+        }
+      }
+    },
+    "tools/list": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "tavo_status",
+            "description": "Return Tavo MCP server status and data-library asset counts.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_search",
+            "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_get",
+            "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_create",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "character": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "first_mes": {
+                      "type": "string"
+                    },
+                    "personality": {
+                      "type": "string"
+                    },
+                    "scenario": {
+                      "type": "string"
+                    },
+                    "mes_example": {
+                      "type": "string"
+                    },
+                    "creator_notes": {
+                      "type": "string"
+                    },
+                    "system_prompt": {
+                      "type": "string"
+                    },
+                    "post_history_instructions": {
+                      "type": "string"
+                    },
+                    "alternate_greetings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "creator": {
+                      "type": "string"
+                    },
+                    "character_version": {
+                      "type": "string"
+                    },
+                    "nickname": {
+                      "type": "string"
+                    },
+                    "character_book": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "extensions": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "description",
+                    "first_mes"
+                  ],
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "character"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_update",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "character": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "first_mes": {
+                      "type": "string"
+                    },
+                    "personality": {
+                      "type": "string"
+                    },
+                    "scenario": {
+                      "type": "string"
+                    },
+                    "mes_example": {
+                      "type": "string"
+                    },
+                    "creator_notes": {
+                      "type": "string"
+                    },
+                    "system_prompt": {
+                      "type": "string"
+                    },
+                    "post_history_instructions": {
+                      "type": "string"
+                    },
+                    "alternate_greetings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "creator": {
+                      "type": "string"
+                    },
+                    "character_version": {
+                      "type": "string"
+                    },
+                    "nickname": {
+                      "type": "string"
+                    },
+                    "character_book": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "extensions": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id",
+                "character"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_import_card",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "card": {
+                  "type": "object",
+                  "description": "Character card JSON payload. Embedded character_book and extensions.regex_scripts are imported when present.",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "card"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_character_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_search",
+            "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_get",
+            "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_create",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "lorebook": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "strategy": {
+                            "type": "string",
+                            "enum": [
+                              "constant",
+                              "keyword"
+                            ]
+                          },
+                          "injectionPosition": {
+                            "type": "string",
+                            "enum": [
+                              "lorebookBefore",
+                              "lorebookAfter",
+                              "topOfExampleMessages",
+                              "bottomOfExampleMessages",
+                              "atDepth"
+                            ]
+                          },
+                          "injectionDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "injectionRole": {
+                            "type": "string",
+                            "enum": [
+                              "system",
+                              "user",
+                              "assistant"
+                            ]
+                          },
+                          "keywords": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "secondaryKeywords": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "secondaryKeywordStrategy": {
+                            "type": "string",
+                            "enum": [
+                              "none",
+                              "andAny",
+                              "andAll",
+                              "notAny",
+                              "notAll"
+                            ]
+                          },
+                          "scanDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "caseSensitive": {
+                            "type": "boolean"
+                          },
+                          "matchWholeWord": {
+                            "type": "boolean"
+                          },
+                          "probability": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100
+                          },
+                          "sticky": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "cooldown": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "delay": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "identifier",
+                          "name",
+                          "content",
+                          "strategy"
+                        ],
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "lorebook"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_update",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "lorebook": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "strategy": {
+                            "type": "string",
+                            "enum": [
+                              "constant",
+                              "keyword"
+                            ]
+                          },
+                          "injectionPosition": {
+                            "type": "string",
+                            "enum": [
+                              "lorebookBefore",
+                              "lorebookAfter",
+                              "topOfExampleMessages",
+                              "bottomOfExampleMessages",
+                              "atDepth"
+                            ]
+                          },
+                          "injectionDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "injectionRole": {
+                            "type": "string",
+                            "enum": [
+                              "system",
+                              "user",
+                              "assistant"
+                            ]
+                          },
+                          "keywords": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "secondaryKeywords": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "secondaryKeywordStrategy": {
+                            "type": "string",
+                            "enum": [
+                              "none",
+                              "andAny",
+                              "andAll",
+                              "notAny",
+                              "notAll"
+                            ]
+                          },
+                          "scanDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "caseSensitive": {
+                            "type": "boolean"
+                          },
+                          "matchWholeWord": {
+                            "type": "boolean"
+                          },
+                          "probability": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100
+                          },
+                          "sticky": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "cooldown": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "delay": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "identifier",
+                          "name",
+                          "content",
+                          "strategy"
+                        ],
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id",
+                "lorebook"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_import",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "lorebook": {
+                  "type": "object",
+                  "description": "Lorebook import payload in Tavo/spec-v3 or compatible SillyTavern shape.",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "lorebook"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_entry_upsert",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "lorebookId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "entry": {
+                  "type": "object",
+                  "properties": {
+                    "identifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "strategy": {
+                      "type": "string",
+                      "enum": [
+                        "constant",
+                        "keyword"
+                      ]
+                    },
+                    "injectionPosition": {
+                      "type": "string",
+                      "enum": [
+                        "lorebookBefore",
+                        "lorebookAfter",
+                        "topOfExampleMessages",
+                        "bottomOfExampleMessages",
+                        "atDepth"
+                      ]
+                    },
+                    "injectionDepth": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "injectionRole": {
+                      "type": "string",
+                      "enum": [
+                        "system",
+                        "user",
+                        "assistant"
+                      ]
+                    },
+                    "keywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "secondaryKeywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "secondaryKeywordStrategy": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "andAny",
+                        "andAll",
+                        "notAny",
+                        "notAll"
+                      ]
+                    },
+                    "scanDepth": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "caseSensitive": {
+                      "type": "boolean"
+                    },
+                    "matchWholeWord": {
+                      "type": "boolean"
+                    },
+                    "probability": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sticky": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "cooldown": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "delay": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "identifier",
+                    "name",
+                    "content",
+                    "strategy"
+                  ],
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "lorebookId",
+                "entry"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_lorebook_entry_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "lorebookId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "identifier": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "lorebookId",
+                "identifier"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_search",
+            "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_get",
+            "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_create",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "regex": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "findRegex": {
+                            "type": "string"
+                          },
+                          "replaceString": {
+                            "type": "string"
+                          },
+                          "trimStrings": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "placements": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "user",
+                                "char",
+                                "reasoning",
+                                "lorebook"
+                              ]
+                            }
+                          },
+                          "timing": {
+                            "type": "string",
+                            "enum": [
+                              "display",
+                              "send",
+                              "sendAndDisplay",
+                              "receive",
+                              "editAndReceive"
+                            ]
+                          },
+                          "substitution": {
+                            "type": "string",
+                            "enum": [
+                              "none",
+                              "raw",
+                              "escaped"
+                            ]
+                          },
+                          "minDepth": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ],
+                            "minimum": 0
+                          },
+                          "maxDepth": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ],
+                            "minimum": 0
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "identifier",
+                          "name",
+                          "findRegex",
+                          "replaceString",
+                          "trimStrings",
+                          "placements",
+                          "timing",
+                          "substitution",
+                          "enabled"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "regex"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_update",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "regex": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "findRegex": {
+                            "type": "string"
+                          },
+                          "replaceString": {
+                            "type": "string"
+                          },
+                          "trimStrings": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "placements": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "user",
+                                "char",
+                                "reasoning",
+                                "lorebook"
+                              ]
+                            }
+                          },
+                          "timing": {
+                            "type": "string",
+                            "enum": [
+                              "display",
+                              "send",
+                              "sendAndDisplay",
+                              "receive",
+                              "editAndReceive"
+                            ]
+                          },
+                          "substitution": {
+                            "type": "string",
+                            "enum": [
+                              "none",
+                              "raw",
+                              "escaped"
+                            ]
+                          },
+                          "minDepth": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ],
+                            "minimum": 0
+                          },
+                          "maxDepth": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ],
+                            "minimum": 0
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "identifier",
+                          "name",
+                          "findRegex",
+                          "replaceString",
+                          "trimStrings",
+                          "placements",
+                          "timing",
+                          "substitution",
+                          "enabled"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id",
+                "regex"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_import",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "regex": {
+                  "type": "object",
+                  "description": "Regex import payload with optional name and SillyTavern-compatible entries.",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "regex"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_entry_upsert",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "regexId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "entry": {
+                  "type": "object",
+                  "properties": {
+                    "identifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "findRegex": {
+                      "type": "string"
+                    },
+                    "replaceString": {
+                      "type": "string"
+                    },
+                    "trimStrings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "placements": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "user",
+                          "char",
+                          "reasoning",
+                          "lorebook"
+                        ]
+                      }
+                    },
+                    "timing": {
+                      "type": "string",
+                      "enum": [
+                        "display",
+                        "send",
+                        "sendAndDisplay",
+                        "receive",
+                        "editAndReceive"
+                      ]
+                    },
+                    "substitution": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "raw",
+                        "escaped"
+                      ]
+                    },
+                    "minDepth": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "maxDepth": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "identifier",
+                    "name",
+                    "findRegex",
+                    "replaceString",
+                    "trimStrings",
+                    "placements",
+                    "timing",
+                    "substitution",
+                    "enabled"
+                  ],
+                  "additionalProperties": false
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "regexId",
+                "entry"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_entry_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "regexId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "identifier": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "regexId",
+                "identifier"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_regex_test",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "findRegex": {
+                  "type": "string"
+                },
+                "replaceString": {
+                  "type": "string"
+                },
+                "input": {
+                  "type": "string"
+                },
+                "caseSensitive": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "findRegex",
+                "replaceString",
+                "input"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_search",
+            "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_get",
+            "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_create",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "preset": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "official": {
+                      "type": "boolean"
+                    },
+                    "basicPrompts": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string",
+                            "enum": [
+                              "system",
+                              "user",
+                              "assistant"
+                            ]
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "builtin",
+                              "marker",
+                              "custom"
+                            ]
+                          },
+                          "injectionPosition": {
+                            "type": "string",
+                            "enum": [
+                              "relative",
+                              "absolute"
+                            ]
+                          },
+                          "injectionDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "forbidOverrides": {
+                            "type": "boolean"
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "preset"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_update",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "preset": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "official": {
+                      "type": "boolean"
+                    },
+                    "basicPrompts": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "identifier": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string",
+                            "enum": [
+                              "system",
+                              "user",
+                              "assistant"
+                            ]
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "builtin",
+                              "marker",
+                              "custom"
+                            ]
+                          },
+                          "injectionPosition": {
+                            "type": "string",
+                            "enum": [
+                              "relative",
+                              "absolute"
+                            ]
+                          },
+                          "injectionDepth": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "forbidOverrides": {
+                            "type": "boolean"
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "active": {
+                            "type": "boolean"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id",
+                "preset"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_import",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "preset": {
+                  "type": "object",
+                  "description": "Preset import payload in Tavo or SillyTavern preset export shape.",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "preset"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_entry_upsert",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "presetId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "entry": {
+                  "type": "object",
+                  "properties": {
+                    "identifier": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "system",
+                        "user",
+                        "assistant"
+                      ]
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "builtin",
+                        "marker",
+                        "custom"
+                      ]
+                    },
+                    "injectionPosition": {
+                      "type": "string",
+                      "enum": [
+                        "relative",
+                        "absolute"
+                      ]
+                    },
+                    "injectionDepth": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "forbidOverrides": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "presetId",
+                "entry"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_entry_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "presetId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "identifier": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "presetId",
+                "identifier"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_preset_set_active",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_search",
+            "description": "Search Tavo assets by name. Use this before get/update when the id is unknown.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_get",
+            "description": "Read one Tavo asset by id. Call this before updating so unknown fields can be preserved.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_create",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "persona": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "persona"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_update",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "persona": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id",
+                "persona"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_delete",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_persona_set_active",
+            "description": "Write a Tavo data-library asset. Supports dryRun, expectedRevision, and clientRequestId.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean",
+                  "description": "Preview the diff without saving."
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "description": "Reject the write if the current asset revision differs."
+                },
+                "clientRequestId": {
+                  "type": "string",
+                  "description": "Idempotency key for retrying non-dry-run writes."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_search",
+            "description": "Search Tavo chats by display title.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_get",
+            "description": "Read one Tavo chat by id.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "includeMessages": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_create",
+            "description": "Create a Tavo chat from character/persona ids.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chat": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chat"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_update",
+            "description": "Update chat metadata, members, and overrides.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "chat": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "chat"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_delete",
+            "description": "Delete a Tavo chat through provider cleanup.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_copy",
+            "description": "Copy a Tavo chat through provider clone logic.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_chat_reset",
+            "description": "Reset a Tavo chat messages/state.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_current_chat_get",
+            "description": "Read the current active Tavo chat.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_current_chat_set",
+            "description": "Set the current active Tavo chat.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_find",
+            "description": "Find messages in a Tavo chat.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "range": {
+                  "type": "array"
+                },
+                "filter": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "required": [
+                "chatId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_get",
+            "description": "Read one message by stable id or drifting index. Id wins.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chatId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_count",
+            "description": "Count messages in a Tavo chat.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "chatId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_append",
+            "description": "Append a message to a Tavo chat.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "message": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chatId",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_insert",
+            "description": "Insert a message at a chat index.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "message": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chatId",
+                "index",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_update",
+            "description": "Update a message by stable id or index.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "message": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chatId",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_message_delete",
+            "description": "Delete a message by stable id or index.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "index": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "dryRun": {
+                  "type": "boolean"
+                },
+                "expectedRevision": {
+                  "type": "string"
+                },
+                "clientRequestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chatId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_input_get",
+            "description": "Read the current active chat input box text.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_input_set",
+            "description": "Replace the current active chat input box text.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_input_append",
+            "description": "Append text to the current active chat input box.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_input_clear",
+            "description": "Clear the current active chat input box.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_input_send",
+            "description": "Send the current active chat input through input hooks and the normal chat flow. Returns when accepted, cancelled, busy, or rejected; it does not wait for generation.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_search",
+            "description": "Search installed Tavo plugins by id, name, or description.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "exact",
+                    "prefix",
+                    "suffix",
+                    "contains"
+                  ]
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "cursor": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_get",
+            "description": "Read one installed Tavo plugin, including manifest and config.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "pluginId": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "pluginId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_package",
+            "description": "Package plugin source files into an installable zip.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "sourcePath": {
+                  "type": "string"
+                },
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "base64": {
+                        "type": "string"
+                      },
+                      "bytesBase64": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "outputPath": {
+                  "type": "string"
+                },
+                "includeZipBase64": {
+                  "type": "boolean"
+                },
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_install",
+            "description": "Install a Tavo plugin from zipBase64 or a local zipPath.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "zipBase64": {
+                  "type": "string"
+                },
+                "zipPath": {
+                  "type": "string"
+                },
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_uninstall",
+            "description": "Uninstall an installed Tavo plugin.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "pluginId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "pluginId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_set_enabled",
+            "description": "Enable or disable an installed plugin.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "pluginId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "pluginId",
+                "enabled"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_set_config",
+            "description": "Set one plugin configuration value.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "pluginId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "key": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "value": true,
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "pluginId",
+                "key",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_reset_config",
+            "description": "Reset one plugin configuration to manifest defaults.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "pluginId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dryRun": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "pluginId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_validate_manifest",
+            "description": "Validate a plugin manifest object before packaging or installing.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "manifest": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "required": [
+                "manifest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tavo_plugin_get_runtime_contributions",
+            "description": "List enabled plugin runtime contributions exposed to Tavo.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    "resources/list": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "resources": [
+          {
+            "uri": "tavo://capabilities",
+            "name": "capabilities",
+            "title": "Tavo MCP capabilities",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://runtime",
+            "name": "runtime",
+            "title": "Tavo MCP runtime",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://current-chat",
+            "name": "current-chat",
+            "title": "Tavo current chat",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://docs/overview",
+            "name": "overview",
+            "title": "Tavo MCP overview",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://docs/tools",
+            "name": "tools",
+            "title": "Tavo MCP tool guide",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://docs/write-safety",
+            "name": "write-safety",
+            "title": "Tavo MCP write safety",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://docs/macros",
+            "name": "macros",
+            "title": "Tavo macro guide",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://docs/tavojs",
+            "name": "tavojs",
+            "title": "TavoJS authoring guide",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://docs/plugins",
+            "name": "plugins",
+            "title": "Tavo plugin authoring guide",
+            "mimeType": "text/markdown"
+          },
+          {
+            "uri": "tavo://schemas/character",
+            "name": "character",
+            "title": "Tavo character schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/lorebook",
+            "name": "lorebook",
+            "title": "Tavo lorebook schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/lorebook-entry",
+            "name": "lorebook-entry",
+            "title": "Tavo lorebook-entry schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/regex",
+            "name": "regex",
+            "title": "Tavo regex schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/regex-entry",
+            "name": "regex-entry",
+            "title": "Tavo regex-entry schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/preset",
+            "name": "preset",
+            "title": "Tavo preset schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/persona",
+            "name": "persona",
+            "title": "Tavo persona schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/chat",
+            "name": "chat",
+            "title": "Tavo chat schema",
+            "mimeType": "application/json"
+          },
+          {
+            "uri": "tavo://schemas/message",
+            "name": "message",
+            "title": "Tavo message schema",
+            "mimeType": "application/json"
+          }
+        ]
+      }
+    },
+    "resources/templates/list": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "resourceTemplates": [
+          {
+            "uriTemplate": "tavo://characters/{id}",
+            "name": "character",
+            "title": "Tavo character",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://lorebooks/{id}",
+            "name": "lorebook",
+            "title": "Tavo lorebook",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://regexes/{id}",
+            "name": "regex",
+            "title": "Tavo regex group",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://presets/{id}",
+            "name": "preset",
+            "title": "Tavo preset",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://personas/{id}",
+            "name": "persona",
+            "title": "Tavo persona",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://chats/{id}",
+            "name": "chat",
+            "title": "Tavo chat",
+            "mimeType": "application/json"
+          },
+          {
+            "uriTemplate": "tavo://chats/{id}/messages",
+            "name": "chat-messages",
+            "title": "Tavo chat messages",
+            "mimeType": "application/json"
+          }
+        ]
+      }
+    },
+    "prompts/list": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "result": {
+        "prompts": []
+      }
+    }
+  },
+  "resource_reads": {
+    "tavo://capabilities": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://capabilities",
+            "mimeType": "application/json",
+            "text": "{\n  \"ok\": true,\n  \"mcp\": {\n    \"protocolVersion\": \"2025-06-18\",\n    \"apiVersion\": 1\n  },\n  \"resources\": {\n    \"static\": [\n      \"tavo://capabilities\",\n      \"tavo://runtime\",\n      \"tavo://current-chat\"\n    ],\n    \"docs\": [\n      \"tavo://docs/overview\",\n      \"tavo://docs/tools\",\n      \"tavo://docs/write-safety\",\n      \"tavo://docs/macros\",\n      \"tavo://docs/tavojs\",\n      \"tavo://docs/plugins\"\n    ],\n    \"schemas\": [\n      \"tavo://schemas/character\",\n      \"tavo://schemas/lorebook\",\n      \"tavo://schemas/lorebook-entry\",\n      \"tavo://schemas/regex\",\n      \"tavo://schemas/regex-entry\",\n      \"tavo://schemas/preset\",\n      \"tavo://schemas/persona\",\n      \"tavo://schemas/chat\",\n      \"tavo://schemas/message\"\n    ],\n    \"templates\": [\n      \"tavo://characters/{id}\",\n      \"tavo://lorebooks/{id}\",\n      \"tavo://regexes/{id}\",\n      \"tavo://presets/{id}\",\n      \"tavo://personas/{id}\",\n      \"tavo://chats/{id}\",\n      \"tavo://chats/{id}/messages\"\n    ]\n  },\n  \"toolGroups\": {\n    \"status\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_status\"\n      ]\n    },\n    \"character\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_character_search\",\n        \"tavo_character_get\",\n        \"tavo_character_create\",\n        \"tavo_character_update\",\n        \"tavo_character_import_card\",\n        \"tavo_character_delete\"\n      ]\n    },\n    \"lorebook\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_lorebook_search\",\n        \"tavo_lorebook_get\",\n        \"tavo_lorebook_create\",\n        \"tavo_lorebook_update\",\n        \"tavo_lorebook_import\",\n        \"tavo_lorebook_delete\",\n        \"tavo_lorebook_entry_upsert\",\n        \"tavo_lorebook_entry_delete\"\n      ]\n    },\n    \"regex\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_regex_search\",\n        \"tavo_regex_get\",\n        \"tavo_regex_create\",\n        \"tavo_regex_update\",\n        \"tavo_regex_import\",\n        \"tavo_regex_delete\",\n        \"tavo_regex_entry_upsert\",\n        \"tavo_regex_entry_delete\",\n        \"tavo_regex_test\"\n      ]\n    },\n    \"preset\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_preset_search\",\n        \"tavo_preset_get\",\n        \"tavo_preset_create\",\n        \"tavo_preset_update\",\n        \"tavo_preset_import\",\n        \"tavo_preset_delete\",\n        \"tavo_preset_entry_upsert\",\n        \"tavo_preset_entry_delete\",\n        \"tavo_preset_set_active\"\n      ]\n    },\n    \"persona\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_persona_search\",\n        \"tavo_persona_get\",\n        \"tavo_persona_create\",\n        \"tavo_persona_update\",\n        \"tavo_persona_delete\",\n        \"tavo_persona_set_active\"\n      ]\n    },\n    \"chat\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_chat_search\",\n        \"tavo_chat_get\",\n        \"tavo_chat_create\",\n        \"tavo_chat_update\",\n        \"tavo_chat_delete\",\n        \"tavo_chat_copy\",\n        \"tavo_chat_reset\",\n        \"tavo_current_chat_get\",\n        \"tavo_current_chat_set\"\n      ]\n    },\n    \"message\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_message_find\",\n        \"tavo_message_get\",\n        \"tavo_message_count\",\n        \"tavo_message_append\",\n        \"tavo_message_insert\",\n        \"tavo_message_update\",\n        \"tavo_message_delete\"\n      ]\n    },\n    \"input\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_input_get\",\n        \"tavo_input_set\",\n        \"tavo_input_append\",\n        \"tavo_input_clear\",\n        \"tavo_input_send\"\n      ],\n      \"uiBound\": true,\n      \"requiresActiveChatPage\": true,\n      \"blankSendRejected\": true\n    },\n    \"plugin\": {\n      \"status\": \"available\",\n      \"tools\": [\n        \"tavo_plugin_search\",\n        \"tavo_plugin_get\",\n        \"tavo_plugin_package\",\n        \"tavo_plugin_install\",\n        \"tavo_plugin_uninstall\",\n        \"tavo_plugin_set_enabled\",\n        \"tavo_plugin_set_config\",\n        \"tavo_plugin_reset_config\",\n        \"tavo_plugin_validate_manifest\",\n        \"tavo_plugin_get_runtime_contributions\"\n      ]\n    },\n    \"variables\": {\n      \"status\": \"planned\",\n      \"scopes\": [\n        \"global\",\n        \"chat\",\n        \"message\"\n      ]\n    },\n    \"files\": {\n      \"status\": \"planned\",\n      \"scopes\": [\n        \"global\",\n        \"chat\"\n      ],\n      \"encodings\": [\n        \"utf8\",\n        \"base64\",\n        \"dataUrl\"\n      ]\n    },\n    \"memory\": {\n      \"status\": \"deferred\"\n    },\n    \"generation\": {\n      \"status\": \"deferred\",\n      \"costful\": true\n    },\n    \"imageGeneration\": {\n      \"status\": \"deferred\",\n      \"costful\": true\n    },\n    \"diagnostics\": {\n      \"status\": \"partial\",\n      \"resources\": [\n        \"tavo://capabilities\",\n        \"tavo://runtime\"\n      ]\n    }\n  },\n  \"writeControls\": {\n    \"dryRun\": true,\n    \"expectedRevision\": true,\n    \"clientRequestId\": true\n  }\n}"
+          }
+        ]
+      }
+    },
+    "tavo://runtime": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://runtime",
+            "mimeType": "application/json",
+            "text": "{\n  \"ok\": true,\n  \"currentChat\": {\n    \"available\": true,\n    \"id\": null,\n    \"title\": null,\n    \"displayTitle\": null,\n    \"messageCount\": 3\n  },\n  \"input\": {\n    \"available\": true,\n    \"requiresActiveChatPage\": true,\n    \"chatId\": null,\n    \"textLength\": 0,\n    \"isBlank\": true\n  }\n}"
+          }
+        ]
+      }
+    },
+    "tavo://docs/overview": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/overview",
+            "mimeType": "text/markdown",
+            "text": "# Tavo MCP Server\n\nTavo exposes a Streamable HTTP MCP endpoint for generic MCP clients and agent applications. Use it to inspect capabilities, read Tavo resources, and call tools that manage data-library assets, chats, messages, the active input box, and plugins.\n\n## Discovery\n\n1. Call `initialize`.\n2. Call `tools/list` and treat the returned tool descriptors as canonical.\n3. Call `resources/list` and `resources/templates/list` to discover documentation, schemas, runtime state, and asset resources.\n4. Read `tavo://docs/tools` for a grouped tool guide and `tavo://docs/write-safety` before writing.\n5. Read `tavo://docs/macros` before writing prompt-like text for characters, lorebooks, regexes, presets, or messages.\n6. Read `tavo://docs/tavojs` before writing JavaScript for character cards.\n7. Read `tavo://docs/plugins` before packaging or editing Tavo plugins.\n\n## Transport\n\nRequests are JSON-RPC 2.0 over `POST /mcp` with `Authorization: Bearer <token>`.\n\nThe server supports request/response HTTP. It does not expose SSE subscriptions yet.\n"
+          }
+        ]
+      }
+    },
+    "tavo://docs/tools": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/tools",
+            "mimeType": "text/markdown",
+            "text": "# Tavo MCP Tools\n\nCall `tools/list` for the canonical machine-readable interface. Each tool descriptor includes `name`, `description`, and `inputSchema` for generic MCP clients.\n\n## Status\n- `tavo_status`\n\n## Characters\n- `tavo_character_search`\n- `tavo_character_get`\n- `tavo_character_create`\n- `tavo_character_update`\n- `tavo_character_import_card`\n- `tavo_character_delete`\n\n## Lorebooks\n- `tavo_lorebook_search`\n- `tavo_lorebook_get`\n- `tavo_lorebook_create`\n- `tavo_lorebook_update`\n- `tavo_lorebook_import`\n- `tavo_lorebook_delete`\n- `tavo_lorebook_entry_upsert`\n- `tavo_lorebook_entry_delete`\n\n## Regex\n- `tavo_regex_search`\n- `tavo_regex_get`\n- `tavo_regex_create`\n- `tavo_regex_update`\n- `tavo_regex_import`\n- `tavo_regex_delete`\n- `tavo_regex_entry_upsert`\n- `tavo_regex_entry_delete`\n- `tavo_regex_test`\n\n## Presets\n- `tavo_preset_search`\n- `tavo_preset_get`\n- `tavo_preset_create`\n- `tavo_preset_update`\n- `tavo_preset_import`\n- `tavo_preset_delete`\n- `tavo_preset_entry_upsert`\n- `tavo_preset_entry_delete`\n- `tavo_preset_set_active`\n\n## Personas\n- `tavo_persona_search`\n- `tavo_persona_get`\n- `tavo_persona_create`\n- `tavo_persona_update`\n- `tavo_persona_delete`\n- `tavo_persona_set_active`\n\n## Chats\n- `tavo_chat_search`\n- `tavo_chat_get`\n- `tavo_chat_create`\n- `tavo_chat_update`\n- `tavo_chat_delete`\n- `tavo_chat_copy`\n- `tavo_chat_reset`\n- `tavo_current_chat_get`\n- `tavo_current_chat_set`\n\n## Messages\n- `tavo_message_find`\n- `tavo_message_get`\n- `tavo_message_count`\n- `tavo_message_append`\n- `tavo_message_insert`\n- `tavo_message_update`\n- `tavo_message_delete`\n\n## Input Box\n- `tavo_input_get`\n- `tavo_input_set`\n- `tavo_input_append`\n- `tavo_input_clear`\n- `tavo_input_send`\n\n## Plugins\n- `tavo_plugin_search`\n- `tavo_plugin_get`\n- `tavo_plugin_package`\n- `tavo_plugin_install`\n- `tavo_plugin_uninstall`\n- `tavo_plugin_set_enabled`\n- `tavo_plugin_set_config`\n- `tavo_plugin_reset_config`\n- `tavo_plugin_validate_manifest`\n- `tavo_plugin_get_runtime_contributions`\n\n## Input Send Results\n\n`tavo_input_send` waits until the current input is accepted by the normal chat flow; it does not wait for model or image generation. It returns `ok`, final `text`, and `chatId`. A failed send returns `reason` as `cancelled`, `busy`, or `rejected`; cancellation may also include `cancelledBy` and `message`.\n\nFor write tools, read `tavo://docs/write-safety` before calling `tools/call`."
+          }
+        ]
+      }
+    },
+    "tavo://docs/write-safety": {
+      "jsonrpc": "2.0",
+      "id": 10,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/write-safety",
+            "mimeType": "text/markdown",
+            "text": "# Tavo MCP Write Safety\n\nBefore updating or deleting an existing Tavo asset, call the matching search/get tool and preserve the returned `revision`.\n\nWrite tools commonly support:\n\n- `dryRun`: preview the diff without saving.\n- `expectedRevision`: reject stale writes when the current revision differs.\n- `clientRequestId`: make non-dry-run retries idempotent.\n\nTypical safe flow:\n\n1. Search or read the target asset.\n2. Prepare the smallest payload needed for the change.\n3. Call the write tool with `dryRun: true`.\n4. Review the returned `diff`.\n5. Call the write tool again with `expectedRevision` and a stable `clientRequestId`.\n\nMessage tools take explicit `chatId`. Message target tools accept stable `id` or 0-based `index`; `id` takes precedence.\n"
+          }
+        ]
+      }
+    },
+    "tavo://docs/macros": {
+      "jsonrpc": "2.0",
+      "id": 11,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/macros",
+            "mimeType": "text/markdown",
+            "text": "# Tavo Macros\n\nTavo macros are `{{...}}` placeholders expanded while rendering prompt-like text. Use them in character cards, lorebooks, regexes, presets, generated messages, and prompt templates when the value should follow the current chat instead of being fixed at authoring time.\n\n## Authoring Rule\n\nPrefer macros over hard-coded names or copied context. In particular, avoid hard-coding the current character name, persona/user name, group members, current scenario, or recent messages when a macro can express the same thing.\n\nGood:\n\n```text\n{{char}} notices {{user}} hesitating.\n```\n\nAvoid:\n\n```text\nAlice notices Bob hesitating.\n```\n\nThis keeps assets reusable when the user renames a character, changes persona, imports the asset into another chat, or uses the same lorebook or regex with multiple characters.\n\n## Identity and Group Macros\n\n- `{{char}}`: current character name or nickname.\n- `{{user}}`: current persona/user name.\n- `{{group}}`: all group-chat character names, comma-separated.\n- `{{charIfNotGroup}}`: current character in single-character contexts; group names in group contexts.\n- `{{groupNotMuted}}`: unmuted group-chat character names, comma-separated.\n\nUse these in character descriptions, first messages, lorebook entries, regex replacements, and preset prompts instead of literal names.\n\n## Character and Persona Context\n\n- `{{charPrompt}}`: character system prompt.\n- `{{charInstruction}}`: character post-history instructions.\n- `{{charDescription}}` / `{{description}}`: character description.\n- `{{charPersonality}}` / `{{personality}}`: character personality.\n- `{{charScenario}}`: character scenario.\n- `{{scenario}}`: conversation override scenario, falling back to character scenario.\n- `{{persona}}`: persona description.\n- `{{mesExamples}}`: rendered example messages.\n- `{{mesExamplesRaw}}`: raw example messages.\n- `{{charVersion}}`: character version.\n- `{{charDepthPrompt}}`: character depth prompt.\n- `{{charCreatorNotes}}` / `{{creatorNotes}}`: creator notes.\n- `{{charJailbreak}}`: legacy alias for post-history instructions.\n\n## Message Context\n\n- `{{lastMessage}}`: most recent visible message.\n- `{{lastUserMessage}}`: most recent visible user message.\n- `{{lastCharMessage}}`: most recent visible non-user message.\n- `{{input}}`: most recent visible user message in generation context.\n\nOnly use recent-message macros when the text is intentionally dynamic. Static lore should usually refer to `{{char}}`, `{{user}}`, and the character/context macros instead.\n\n## Date, Random, and Formatting\n\n- `{{time}}`: current local time.\n- `{{time::UTC+9}}` / `{{time::UTC-5}}`: time at a UTC hour offset.\n- `{{date}}`: current local date.\n- `{{weekday}}`: current local weekday.\n- `{{isotime}}`: current time as `HH:mm`.\n- `{{isodate}}`: current date as `yyyy-MM-dd`.\n- `{{idleDuration}}`: duration since the prior relevant user message.\n- `{{random::one,two,three}}`: random item from a comma-separated list.\n- `{{roll::3d6}}` / `{{dice::3d6}}`: dice roll total.\n- `{{newline}}` / `{{newline::3}}`: one or more newline characters.\n- `{{space}}` / `{{space::4}}`: one or more spaces.\n- `{{trim}}`: trim surrounding whitespace from the rendered text.\n- `{{noop}}`: empty string.\n- `{{//comment}}`: template comment; removed during rendering.\n\n## Variables\n\nChat-scoped variables travel with the chat export:\n\n- `{{setvar::name::value}}`: set a chat variable.\n- `{{addvar::name::value}}`: append/add to a chat variable.\n- `{{incvar::name}}`: increment a chat variable by 1.\n- `{{decvar::name}}`: decrement a chat variable by 1.\n- `{{getvar::name}}`: read a chat variable.\n\nGlobal variables persist across chats and should use collision-resistant names:\n\n- `{{setglobalvar::name::value}}`\n- `{{addglobalvar::name::value}}`\n- `{{incglobalvar::name}}`\n- `{{decglobalvar::name}}`\n- `{{getglobalvar::name}}`\n\nPrefer chat variables for roleplay state such as affection, health, inventory, location, or temporary flags. Use global variables only for values intentionally shared across unrelated chats.\n\n## Agent Checklist\n\nWhen writing or editing Tavo assets:\n\n1. In character cards, replace literal character/user names in descriptions, scenarios, first messages, examples, and instructions with `{{char}}` and `{{user}}` when they refer to the active names.\n2. In lorebooks, write reusable entries with `{{char}}`, `{{user}}`, `{{group}}`, and `{{scenario}}` instead of chat-specific names.\n3. In regexes, use macros in replacement text when the replacement should adapt to the active character, persona, group, time, or variables.\n4. In presets and prompt templates, use context macros such as `{{persona}}`, `{{description}}`, `{{scenario}}`, and `{{mesExamples}}` instead of copying character-card fields.\n5. Do not replace proper nouns that are part of the fictional world, a third-party character, a location, or a deliberate fixed name.\n6. Read the current asset first and preserve existing macro style unless changing it is part of the user's request.\n"
+          }
+        ]
+      }
+    },
+    "tavo://docs/tavojs": {
+      "jsonrpc": "2.0",
+      "id": 12,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/tavojs",
+            "mimeType": "text/markdown",
+            "text": "# TavoJS Authoring Guide\n\nTavoJS is the JavaScript API exposed inside rendered chat content and character cards. Use it when a character card needs interactive UI, persistent state, message editing, generation, image generation, file storage, or input-box actions.\n\nFor plugin packages, read `tavo://docs/plugins`.\n\nGeneration lifecycle hooks are not a pure TavoJS or `tavo.events` API. Only\ninstalled plugin `entry` scripts register `generation:prepare`,\n`generation:success`, `generation:error`, and `generation:cancelled` through\n`tavo.plugin.on(...)`; HTML fragment scripts cannot register them.\n\n## General Rules\n\n- Prefer chat-scoped data for roleplay state so exported chats carry their state.\n- Use `global` scope only for truly cross-chat data and choose collision-resistant names.\n- Use message scope for state attached to a single message/floor.\n- Most APIs that return app data are async and should be called with `await`.\n- Variable snapshot APIs such as `tavo.get`, `tavo.set`, and `tavo.unset` are synchronous from JavaScript.\n- For destructive, costly, or external actions, expect Tavo confirmation settings to apply.\n- Write small scripts that fail safely. If an optional object is missing, show a toast or no-op instead of throwing.\n\n## Common Namespaces\n\n- `tavo.get(name, scope)`, `tavo.set(name, value, scope)`, `tavo.unset(name, scope)`: persistent variables.\n- `tavo.message.find(range, filter)`: read messages by 0-based floor range.\n- `tavo.message.get(idOrQuery)`: read one message by stable `id` or `{ index }`.\n- `tavo.message.current()`: read the message running the current script.\n- `tavo.message.append(message)`, `tavo.message.update(message, opts)`, `tavo.message.delete(idOrQuery)`: edit chat messages.\n- `tavo.chat.current()`, `tavo.chat.update(chat)`: read or update the active chat.\n- `tavo.character.*`, `tavo.persona.*`, `tavo.preset.*`, `tavo.lorebook.*`, `tavo.regex.*`: manage data-library assets.\n- `tavo.generate(prompt, options)`: run a one-off text generation.\n- `tavo.image.generate(prompt, options)`: run a one-off image generation.\n- `tavo.tts.play(text, options)` and `tavo.tts.stop()`: synthesize/play text through an existing character or persona TTS binding, or stop the shared current-chat TTS queue.\n- `tavo.file.save/load/delete/exists/url`: persist text, base64, data URLs, or downloaded files.\n- `tavo.input.get/set/append/clear/send`: control the active chat input box.\n- `tavo.utils.toast/openUrl/select/export/preview`: common UI helpers.\n- `tavo.app.version()` and `tavo.app.versionNumber()`: read app version.\n\n## TTS Playback\n\nOrdinary message TavoJS may omit `voice` and use the host message speaker. In\nplugin contexts, `voice` is required: pass exactly one of\n`{ voice: { character: idOrObject } }` or\n`{ voice: { persona: idOrObject } }`. Plugin code should find the target with\n`tavo.chat`, `tavo.message`, `tavo.character`, or `tavo.persona` first.\n\n`queue` and `applyPlaybackRules` default to `false`. `tavo.tts.stop()` stops the\ncurrent chat's shared playback and clears its complete waiting queue.\n\n## Input Sending\n\n`tavo.input.send()` is asynchronous. It resolves when Tavo accepts the current\ninput, before downstream model or image generation finishes:\n\n```js\nconst result = await tavo.input.send()\nif (!result.ok) console.log(result.reason, result.text)\n```\n\nSuccess returns `{ ok: true, text }`. Failure returns `{ ok: false, reason,\ntext }`, where `reason` is `cancelled`, `busy`, or `rejected`. A plugin\ncancellation may also include `cancelledBy` and `message`.\n\n## Message Scope\n\nMessage variables live on one message and are removed when that message is deleted.\n\n```js\ntavo.set('hp', 100, 'message')\nconst hp = tavo.get('hp', 'message')\ntavo.set('hp', 50, { scope: 'message', id: 2338 })\ntavo.unset('hp', { scope: 'message', index: -1 })\n```\n\nUse stable message `id` for round trips. Use `index` only for immediate floor-position access because indexes drift when messages are deleted or inserted.\n\n## Character Card Pattern\n\nPut UI in the message HTML and use TavoJS for behavior:\n\n```html\n<button onclick=\"rollMood()\">Roll mood</button>\n<span id=\"mood\"></span>\n<script>\nasync function rollMood() {\n  const moods = ['calm', 'curious', 'tense'];\n  const mood = moods[Math.floor(Math.random() * moods.length)];\n  tavo.set('mood', mood);\n  document.getElementById('mood').textContent = mood;\n  tavo.utils.toast('Mood: ' + mood);\n}\n</script>\n```\n\n## Agent Checklist\n\nWhen generating TavoJS for a user:\n\n1. Identify whether the script runs in a character card, an existing bubble, or a plugin UI fragment.\n2. Store roleplay state in chat scope unless the user explicitly needs global state.\n3. Use `tavo.message.current()` when the script needs to modify or inspect its own message.\n4. Use `tavo.file.save(..., { scope: 'chat' })` instead of storing large images or blobs in variables.\n5. For data-library edits, read the current object first, preserve unknown fields, and update only what changed.\n6. Include user-visible error handling with `try/catch` and `tavo.utils.toast`.\n"
+          }
+        ]
+      }
+    },
+    "tavo://docs/plugins": {
+      "jsonrpc": "2.0",
+      "id": 13,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://docs/plugins",
+            "mimeType": "text/markdown",
+            "text": "# Tavo Plugins\n\nTavo plugins are `.tpg` zip packages installed from Tavo Settings -> Plugins. Use plugins when behavior should be reusable across characters or chats. Use plain TavoJS inside character cards when the behavior belongs to one card.\n\nFor character-card JavaScript, read `tavo://docs/tavojs`.\n\n## Package Layout\n\n```text\nmy-plugin.tpg\n|-- manifest.json\n|-- entry.js\n|-- ui/\n|-- icons/guide.png\n`-- cover.png\n```\n\nPutting `manifest.json` at the package root is recommended. For archives made\nby compressing a wrapping folder, Tavo scans for manifest.json: a root manifest\nwins; otherwise exactly one nested candidate is accepted and its parent becomes\nthe plugin root. Archives with multiple nested manifest.json candidates are\nrejected as ambiguous. Files outside the selected plugin root are not installed.\n`entry` points to the optional plugin entry script, usually root `entry.js`, and\nall manifest resource paths remain relative to the selected plugin root.\n\n## manifest.json\n\nRequired fields:\n\n- `id`: reverse-domain style plugin id, lowercase letters/digits with `.`, `_`, or `-` separators.\n- `name`: display name.\n- `version`: version string; semantic versions like `1.0.0` are recommended.\n\nCommon optional fields:\n\n- `entry`: package-relative plugin entry script path. Required when the plugin\n  declares `contributes.inputActions` or `contributes.sidebar`; also valid for\n  plugins that prepare notification hooks. Legacy `scripts.actions` manifests are\n  still accepted as a compatibility alias. If both are present, `entry` wins.\n- `author`\n- `description`\n- `cover`: package-relative cover image path.\n- `icon`: deprecated; ignored by current Tavo versions. Use\n  `contributes.inputActions[].icon` for native input menu icons.\n- `minAppVersion`\n- `permissions`: capability namespaces requested by the plugin, such as\n  `generate`, `variable`, `input`, `message`, `tts`, `file`, or `network`. Current\n  Tavo versions display these declarations as author intent; they are not yet\n  enforced as runtime permission gates.\n- `contributes`\n\n## External Resources and Paths\n\nPlugin resource fields are package-relative virtual paths and must use `/`\nseparators on every platform, including Windows. Do not use OS path separators\nor raw `path.join()` output in manifest paths. Do not use absolute paths, `..`\ntraversal, Windows backslash paths, or `http(s)://` URLs for package resources.\nMissing, unreadable, or undecodable resources fall back to the default UI or\nare skipped.\n\nTavo currently does not enforce image pixel dimensions or file sizes at install\ntime. Use these authoring guidelines to avoid mobile decode cost and menu jank:\n\n- `cover`: PNG, JPEG, or WebP. Prefer a square or near-square image such as\n  `1024x1024` or `1125x1125`, up to about 1 MB. The plugin detail page fits it\n  by width and aligns it to the top; the plugin list crops it into a circle.\n- `contributes.inputActions[].icon`: PNG or WebP. Prefer a transparent square\n  image, `64x64` or `128x128`; keep it at or below `512x512` and about 256 KB.\n  The native menu scales it into a fixed icon slot.\n- `contributes.htmlFragments[].src`: UTF-8 HTML file. Keep it lightweight and\n  inline required CSS/JS where practical. Other files inside the plugin package\n  are not automatically served as WebView static assets; use data URLs, Tavo\n  file API outputs, or user-authorized remote URLs when an HTML fragment needs\n  images or other subresources.\n- `entry`: UTF-8 JavaScript file, usually root `entry.js`. It registers native\n  action handlers and plugin notification hooks.\n\n`.tpg` is a zip package; `.zip` is also accepted for development/import flows.\nZip entries must not be absolute paths or traverse out of the plugin directory.\n\n## Choosing a Plugin Surface\n\nChoose the surface from the user job first, then write `manifest.json`. A plugin\nmay declare multiple surfaces. A common pattern is to store configuration with\n`settings.schema`, then expose one or more surfaces to run or display the feature.\n\n| Surface | Use when | Notes |\n|---|---|---|\n| `contributes.inputActions` | The user is composing in the input box and wants an explicit one-tap action: draft a reply, rewrite the current input, insert a template, append prompt text, or prepare before sending. | Native menu labels are single-line. Handlers currently receive no arguments. There is no current message context, so `tavo.message.current()` returns `null`. |\n| `contributes.sidebar` | The feature is a chat-level utility that is useful but lower frequency: summarize the chat, export or save data, batch-edit messages, refresh plugin state, or run a one-off management flow. | This is a native right-sidebar action, not an embedded panel. The first version does not support icons, descriptions, dynamic state, or chat-type filters. |\n| `contributes.htmlFragments` mounted under `/chat` | The feature needs persistent chat-page UI: a status bar, floating panel, global control strip, style injection, or page-level display based on the current chat or input. | Chat fragments mount in the top-level chat WebView and do not have current message context. They require Advanced Rendering. Keep them lightweight and avoid covering the host chat UI. |\n| `contributes.htmlFragments` mounted under `/messages` | The feature belongs next to individual messages: message decorations, status labels, per-message buttons, a block on the last character message, or UI that depends on message-scoped variables. | A message fragment renders for every matching message unless filtered by `role` or `position`. It has `tavo.message.current()`, but DOM and script cost matter more here. |\n\n## Contributions\n\n`contributes.inputActions` adds items to the chat input `+` menu:\n\n```json\n{\n  \"contributes\": {\n    \"inputActions\": [\n      { \"id\": \"guide\", \"label\": \"Guided answer\" }\n    ]\n  }\n}\n```\n\nEach input action may set `icon` to a package-relative image path. If omitted or\ninvalid, Tavo uses the default plugin icon. Prefer a square transparent\n`64x64` or `128x128` PNG/WebP; avoid images larger than `512x512` or about\n256 KB because Tavo scales the icon visually but oversized files still cost\nmemory to decode.\n\nNative menu labels are single-line and ellipsized when they are too long.\n\n`contributes.sidebar` adds actions to the chat right sidebar:\n\n```json\n{\n  \"contributes\": {\n    \"sidebar\": [\n      { \"id\": \"summary\", \"label\": \"Summarize chat\" }\n    ]\n  }\n}\n```\n\nEach sidebar action uses:\n\n- `id`: stable action id used by the `entry` script to register the handler.\n- `label`: text shown in the right-sidebar row.\n\nIf a plugin declares multiple sidebar actions, Tavo shows them in one section\ntitled `Plugin · Plugin Name`. The first version does not support descriptions,\nicons, dynamic state, chat-type filters, or embedded panels.\n\nWhen a plugin declares `contributes.inputActions` or `contributes.sidebar`, it\nmust also set `entry`. When a user taps an input action or sidebar action, Tavo\ndispatches it to a matching handler registered by that entry script. Legacy\n`scripts.actions` manifests continue to work, but new plugins should use\n`entry`.\n\nFragment-only plugins can omit `entry`. HTML fragments are mounted from their own\n`contributes.htmlFragments[].src` files. If a plugin also sets `entry`, the entry\nscript is the plugin-level hook/action runtime while fragment scripts remain\nUI-local.\n\n### `tavo` Binding in Plugin Runtime\n\nPlugin authors should use the unqualified lexical `tavo` binding in `entry`,\n`/chat` HTML fragments, and `/messages` HTML fragments, for example\n`await tavo.input.get()`. Do not treat `window.tavo` or `globalThis.tavo` as the\npublic plugin-scoped contract; they may be missing or may not represent the\ncurrent plugin scope on every surface.\n\n- `entry`, input actions, and sidebar actions: Tavo injects the current plugin's\n  scoped `tavo` facade as a function parameter. That parameter is the authority\n  for action handlers.\n- `/chat` HTML fragments: Tavo wraps each activated inline `<script>` with the\n  current fragment's scoped `tavo`; event listeners and async closures capture\n  that binding.\n- `/messages` HTML fragments: scripts run in the message sandbox iframe. The\n  iframe has the normal message TavoJS `window.tavo`, and plugin bootstrap adds\n  `window.tavo.plugin`. The unqualified `tavo` also resolves there. Prefer\n  unqualified `tavo` so plugin code is easier to reuse across surfaces.\n\n```js\n// Recommended across plugin surfaces.\ntavo.plugin.onInputAction('guide', async () => {\n  const input = await tavo.input.get();\n  await tavo.input.set(`Draft:\n${input}`);\n});\n\n// Avoid using window/globalThis as the plugin scope contract.\n// const input = await window.tavo.input.get();\n// const cfg = globalThis.tavo.plugin.config.get('basePrompt');\n```\n\n### Reading Plugin Settings\n\n`contributes.settings.schema` declares the settings form and its defaults.\nPlugin runtime code reads the current plugin's **effective configuration values**\nfrom the scoped `tavo.plugin.config` API. Both methods are synchronous and\nread-only, so do not use `await`:\n\n```js\nconst enabled = tavo.plugin.config.get('enabled');\nconst config = tavo.plugin.config.all();\n```\n\n- `get(key)` returns the saved user value, falling back to that field's schema\n  `default`. It returns `null` when the key has neither a saved value nor a\n  default.\n- `all()` returns a shallow copy of all effective values, including schema\n  defaults and user overrides. Mutating the returned object does not save or\n  change plugin settings.\n- `tavo.plugin.config` is available in `entry`, input/sidebar action handlers,\n  and `/chat` or `/messages` HTML fragments. It is always scoped to the current\n  plugin.\n- This API does not return the raw `contributes.settings.schema` definition and\n  does not provide runtime writes. The plugin owns its manifest schema, and the\n  user changes values through Tavo's plugin settings page.\n\n### Registering Action Handlers\n\nNew plugins should prefer `tavo.plugin.onInputAction(id, handler)` and\n`tavo.plugin.onSidebarAction(id, handler)`. They validate `id` and register the\nlower-level event name:\n\n- `onInputAction('guide', handler)` is equivalent to\n  `plugin.on('inputActions:guide', handler)`\n- `onSidebarAction('summary', handler)` is equivalent to\n  `plugin.on('sidebar:summary', handler)`\n\n`tavo.plugin.on(type, handler)` is still supported for the lower-level event form,\nold examples, or code that builds event names dynamically. Native input/sidebar\ndispatch does not care which registration API was used; it only looks up the final\nkey: `inputActions:<id>` or `sidebar:<id>`. When using `plugin.on`, `<id>` must\nexactly match the manifest action id in `contributes.inputActions[].id` or\n`contributes.sidebar[].id`, including case, hyphens, and other characters.\n\n```js\ntavo.plugin.onInputAction('guide', async () => {\n  const input = await tavo.input.get();\n  const basePrompt =\n    tavo.plugin.config.get('basePrompt') ||\n    'Draft a reply from this context:';\n  const draft = await tavo.generate(`${basePrompt}\n\n${input}`);\n  await tavo.input.set(draft);\n});\n\ntavo.plugin.onSidebarAction('summary', async () => {\n  await tavo.utils.toast('Summarizing chat');\n});\n```\n\nAction handlers run in the WebView advanced rendering runtime. If Advanced\nRendering is disabled, the action remains visible in the native UI, but\ntapping it shows a dialog guiding the user to enable Advanced Rendering and the\nhandler is not executed.\n\nRuntime APIs available to plugin code:\n\nWhen Advanced Rendering is enabled, `entry`, chat HTML fragments, sidebar\nactions, and input actions share the same scoped `tavo` facade:\n\n- `tavo.plugin.pluginId` and `tavo.plugin.fragmentId`; `fragmentId` is set for\n  HTML fragments and `null` in the action runtime.\n- `tavo.plugin.onInputAction(id, handler)`, the recommended input action helper\n- `tavo.plugin.onSidebarAction(id, handler)`, the recommended sidebar action helper\n- `tavo.plugin.on('inputActions:<id>', handler)` and\n  `tavo.plugin.on('sidebar:<id>', handler)` for supported lower-level event\n  registration; `<id>` must exactly match the manifest action id\n- `tavo.plugin.on(type, handler)` for notification hooks and supported lower-level\n  action events\n- `tavo.plugin.config.get(key)` and `tavo.plugin.config.all()`\n- `tavo.chat.current()` and `tavo.chat.update(patch)`\n- `tavo.message.find(query)`, `get(id)`, `current()`, `count(query)`,\n  `append(message)`, `update(id, patch)`, and `delete(id)`\n- `tavo.input.get()`, `set(text)`, `append(text)`, `clear()`, `send()`\n- `tavo.generate(prompt)` and `tavo.image.generate(prompt, options)`\n- `tavo.tts.play(text, options)` / `tavo.tts.stop()`\n  - Declare `permissions: [\"tts\"]`; permissions remain declarative.\n  - voice is required in plugin contexts. Pass exactly one character or\n    persona id/object; plugins must resolve the speaker themselves.\n  - `stop()` stops the shared current-chat TTS queue, including UI, ordinary\n    TavoJS, and other-plugin tasks.\n- `tavo.memory.current()` and `tavo.memory.update(patch)`\n- `tavo.character.*`, `tavo.persona.*`, `tavo.preset.*`, `tavo.lorebook.*`,\n  and `tavo.regex.*` for data-library list/get/create/update/delete APIs\n- `tavo.file.save(data, options)`, `load(id)`, `delete(id)`, `exists(id)`,\n  and `url(id)`\n- `tavo.utils.toast(text)`, `openUrl(url)`, `select(options)`, `export(data,\n  options)`, and `preview(data, options)`\n- `tavo.app.version()` and `tavo.app.versionNumber()`\n- `tavo.get(key, scope)`, `set(key, value, scope)`,\n  `update(key, patchOrUpdater, scope)`, and `unset(key, scope)`\n\n`tavo.message.current()` points to the rendered message only inside\n`/messages` HTML fragments. It returns `null` in `/chat` fragments, input\nactions, and sidebar actions. The message variable scope follows the same rule:\n`tavo.get/set/update/unset(..., 'message')` maps to the current message only\nwhen a current message exists.\n\nThe handler currently receives no arguments. If an action has no registered\nhandler, Tavo reports a missing handler. If the handler throws, Tavo reports a\nplugin action failure.\n\nHandlers may be async and may open browser-native dialogs such as `prompt`,\n`confirm`, or `alert`. The native menu dispatch only waits for the handler to\nstart successfully; the handler's async work continues inside the WebView\nruntime.\n\n## Notification Hooks\n\nEntry scripts can listen to current-chat WebView runtime notifications with\n`tavo.plugin.on(type, handler)`. These hooks notify state changes only; they do\nnot modify or intercept the main chat or generation flow.\n\nSupported chat hooks:\n\n- `chat:opened`: the current chat WebView plugin runtime has loaded and the\n  current chat is readable.\n- `chat:closed`: best-effort event when leaving the chat page, switching chats,\n  or disposing the WebView.\n- `chat:updated`: current chat metadata changed, such as title, character,\n  persona, preset, lorebooks, memory, or background.\n- `chat:changed`: compatibility alias for `chat:updated`; handlers receive\n  `event.type === 'chat:updated'`.\n\nSupported message hooks:\n\n- `message:added`: a persistent message entered the current chat message list.\n  Loading, placeholder, and streaming intermediate states are not message adds.\n- `message:updated`: persistent message content or metadata changed. Streaming\n  token intermediate states do not trigger this hook.\n- `message:deleted`: a persistent message was removed from the current chat.\n- `message:changed`: umbrella event fired after `message:added`,\n  `message:updated`, or `message:deleted`.\n\nSpecific message events fire before `message:changed`. A failing handler is\nlogged but does not block other plugin handlers. Events are not queued while the\nruntime is unloaded; if an entry registers a handler after the current chat is\nalready open, Tavo sends one catch-up `chat:opened` event.\n\n```js\ntavo.plugin.on('chat:opened', async (event) => {\n  await tavo.utils.toast(`Opened chat: ${event.chat?.name || event.chatId}`);\n});\n\ntavo.plugin.on('message:changed', async (event) => {\n  console.log(event.change, event.message?.id);\n});\n```\n\nEvery event object contains `type`, `pluginId`, and ISO timestamp `at`. Chat\nevents also include `chatId` and a lightweight `chat` summary. Message events\nalso include `chatId`, `change`, and a lightweight `message` summary:\n\n```js\n{\n  type: 'message:updated',\n  pluginId: 'com.author.my-plugin',\n  at: '2026-07-09T12:34:56.000Z',\n  chatId: 7,\n  change: 'updated',\n  message: {\n    id: 42,\n    index: 3,\n    isUser: true,\n    role: 'user',\n    hidden: false\n  }\n}\n```\n\n## Generation Lifecycle Hooks\n\nGeneration lifecycle hooks must be registered from the installed plugin `entry`\nscript; HTML fragment scripts cannot register them. Pure character-card/message\nTavoJS and `tavo.events` do not receive them. Declare\n`permissions: [\"generate\"]` in the manifest. Like other permissions, it is\ndeclarative author intent and not a runtime gate.\n\n```js\ntavo.plugin.on('generation:prepare', async (event) => {\n  event.text = '[Model-only context]\n' + event.text;\n});\n\ntavo.plugin.on('generation:success', async (event) => {\n  event.text = event.text.trim();\n});\n\ntavo.plugin.on('generation:error', async (event) => {\n  console.error(event.error.code, event.error.message);\n});\n\ntavo.plugin.on('generation:cancelled', async (event) => {\n  console.log('stopped', event.partial);\n});\n```\n\nEvery lifecycle event has read-only `generationId`, `chatId`, `source`, `at`,\n`type`, and `pluginId`. Supported `source` values (exact allowlist): `reply`,\n`groupReply`, `continuation`, `othersContinuation`, and `regeneration`.\nAll other auxiliary, image, speech, summarization, independent, and pure\nTavoJS/JSAPI generation paths are excluded.\n\n- `generation:prepare` runs after built-in generation-start processing and\n  before request messages are built and the model request starts. It is a serial\n  interceptor whose mutable `text` is only the latest user message in the\n  transient request history. A rewrite is model-only: it never changes or saves\n  the user's persistent message, and it may be empty.\n- `generation:success` is a serial interceptor after generation and extension\n  processing but before the character message saves. Its mutable `text` is the\n  final response body and must remain non-empty; an empty rewrite is discarded.\n- `generation:error` is a non-blocking terminal notification. `event.error`\n  contains only sanitized `code` and `message`, never raw provider data,\n  exception details, request bodies, messages, context, or reasoning.\n- `generation:cancelled` is a non-blocking terminal notification with boolean\n  `partial`. For `partial: true`, Tavo saves the partial character message and\n  then emits the existing `message:added`; for `partial: false`, no message\n  saves.\n\nPrepare and success run in plugin/registration order. Each handler has a\nfive-second timeout and fails open: a throw, timeout, or invalid text rolls back\nonly that handler; success also rejects an empty result. They cannot cancel the\ngeneration. Exactly one terminal outcome is emitted per generation: success,\nerror, and cancelled are mutually exclusive. All lifecycle hooks are\nbest-effort WebView work: if the current chat Advanced Rendering runtime is not\nloaded, unavailable, or disposed, Tavo skips them without queueing or blocking\ngeneration.\n\n## Input Interception Hooks\n\nEntry scripts can also intercept input-box sends from the UI,\n`tavo.input.send()`, and MCP `tavo_input_send`:\n\n```js\ntavo.plugin.on('input:beforeSend', async (event) => {\n  event.text = event.text.trim()\n  if (!event.text.includes(':')) event.cancel('Add a speaker name')\n})\n\ntavo.plugin.on('input:afterSend', async (event) => {\n  console.log('accepted:', event.text)\n})\n```\n\nDeclare the capability as `permissions: [\"input\"]`; permissions are currently\ndeclarative and are not runtime gates. `input:beforeSend` runs before macros\nand slash-command parsing. Its event has read-only `type`, `pluginId`,\n`chatId`, `source`, and `at`, plus mutable string `text` and\n`event.cancel(reason?)`. `source` is `ui`, `tavojs`, or `mcp`. Handler return\nvalues are ignored.\n\nBefore-send handlers run serially in stable plugin/registration order. Each\nhandler receives a private draft. A throw, invalid non-string draft, or\nfive-second timeout rolls back only that handler and fails open; explicit\ncancellation stops later handlers and preserves the latest committed input and\nattachments without showing an additional Toast.\n`input:afterSend` is a non-blocking notification after the final text is\naccepted and trimmed. It does not wait for or observe generation.\n\nThese hooks require the current chat Advanced Rendering WebView runtime. When\nthe runtime is unavailable, Tavo bypasses them without queueing or blocking the\nsend.\n\n`contributes.htmlFragments` injects lightweight HTML into the Advanced\nRendering WebView. Each item uses:\n\n- `id`: fragment id.\n- `src`: package-relative UTF-8 HTML file path. It must not be a URL, absolute\n  path, backslash path, or `..` traversal.\n- `mount`: where to inject the fragment.\n\nSupported mounts:\n\n- `/chat` (`/chat/body/end`)\n- `/chat/head/start`, `/chat/head/end`\n- `/chat/body/start`, `/chat/body/end`\n- `/messages` (`/messages/end`)\n- `/messages/start`, `/messages/end`\n- `/messages/start?role=user` or `role=character`\n- `/messages/end?position=first` or `position=last`\n\nHTML fragments are installed plugin runtime code. If Advanced Rendering is\ndisabled, fragments are not mounted. When Advanced Rendering is enabled,\nfragment scripts run as plugin code and are not gated by the chat-content\nJavaScript execution mode. The chat-content JavaScript mode only controls\ncharacter-card, model-output, and other message bubble content.\n\nFragment scripts receive the same scoped `tavo` facade as action handlers.\nFragments mounted under `/messages` also receive the current message context;\nfragments mounted under `/chat` do not.\n\n`contributes.settings.schema` defines the plugin settings form. Supported element types:\n\nThis is the form schema, not a runtime value API. Plugin code reads effective\nvalues, after schema defaults and saved user values are resolved, through\n`tavo.plugin.config.get(key)` or `tavo.plugin.config.all()`. The raw schema is\nnot exposed by a runtime query API.\n\n- `switch`\n- `select`\n- `slider`\n- `text`\n- `textarea`\n- `info`\n- `divider`\n- `break`\n\nField elements such as `switch`, `select`, and `slider` use `key`, `label`, and optional `default`. `select` requires `options`. `slider` requires `min` and `max`.\n\n## Example Manifest\n\n```json\n{\n  \"id\": \"com.tavo.guided-answer\",\n  \"name\": \"Guided Answer\",\n  \"version\": \"1.0.0\",\n  \"entry\": \"entry.js\",\n  \"description\": \"Draft a guided reply from the current context.\",\n  \"cover\": \"cover.png\",\n  \"permissions\": [\"generate\", \"input\", \"tts\"],\n  \"contributes\": {\n    \"inputActions\": [\n      { \"id\": \"guide\", \"label\": \"Guided Answer\", \"icon\": \"icons/guide.png\" }\n    ],\n    \"sidebar\": [\n      { \"id\": \"summary\", \"label\": \"Summarize chat\" }\n    ],\n    \"htmlFragments\": [\n      { \"id\": \"style\", \"src\": \"ui/style.html\", \"mount\": \"/chat/head/end\" }\n    ],\n    \"settings\": {\n      \"schema\": [\n        { \"type\": \"info\", \"text\": \"Basic plugin settings.\", \"icon\": \"info\" },\n        { \"key\": \"enabled\", \"type\": \"switch\", \"label\": \"Enabled\", \"default\": true },\n        { \"type\": \"divider\" },\n        { \"key\": \"mode\", \"type\": \"select\", \"label\": \"Mode\", \"default\": \"short\", \"options\": [\"short\", \"detailed\"] },\n        { \"key\": \"strength\", \"type\": \"slider\", \"label\": \"Strength\", \"min\": 0, \"max\": 1, \"step\": 0.1, \"default\": 0.5 },\n        { \"type\": \"break\" },\n        { \"key\": \"basePrompt\", \"type\": \"textarea\", \"label\": \"Base prompt\", \"default\": \"Draft a reply from this context:\" }\n      ]\n    }\n  }\n}\n```\n\n## MCP Tools\n\nUse MCP plugin tools to package, validate, install, inspect, enable, disable, configure, and uninstall plugins. Call `tools/list` for the exact schemas.\n\nTypical agent flow:\n\n1. Read `tavo://docs/plugins`.\n2. Create `manifest.json`, `entry.js` when the plugin declares native actions, and optional assets.\n3. Call `tavo_plugin_validate_manifest`.\n4. Call `tavo_plugin_package`.\n5. Call `tavo_plugin_install` with the returned `zipBase64`.\n6. Call `tavo_plugin_set_enabled` if the user wants it enabled.\n"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/character": {
+      "jsonrpc": "2.0",
+      "id": 14,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/character",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"character\",\n  \"required\": [\n    \"name\",\n    \"description\",\n    \"first_mes\"\n  ],\n  \"resourceTemplate\": \"tavo://characters/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/lorebook": {
+      "jsonrpc": "2.0",
+      "id": 15,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/lorebook",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"lorebook\",\n  \"required\": [\n    \"name\"\n  ],\n  \"resourceTemplate\": \"tavo://lorebooks/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/lorebook-entry": {
+      "jsonrpc": "2.0",
+      "id": 16,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/lorebook-entry",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"lorebook-entry\",\n  \"required\": [\n    \"identifier\",\n    \"name\",\n    \"content\",\n    \"strategy\"\n  ]\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/regex": {
+      "jsonrpc": "2.0",
+      "id": 17,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/regex",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"regex\",\n  \"required\": [\n    \"name\"\n  ],\n  \"resourceTemplate\": \"tavo://regexes/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/regex-entry": {
+      "jsonrpc": "2.0",
+      "id": 18,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/regex-entry",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"regex-entry\",\n  \"required\": [\n    \"identifier\",\n    \"name\",\n    \"findRegex\",\n    \"replaceString\"\n  ]\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/preset": {
+      "jsonrpc": "2.0",
+      "id": 19,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/preset",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"preset\",\n  \"required\": [\n    \"name\"\n  ],\n  \"resourceTemplate\": \"tavo://presets/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/persona": {
+      "jsonrpc": "2.0",
+      "id": 20,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/persona",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"persona\",\n  \"required\": [\n    \"name\"\n  ],\n  \"resourceTemplate\": \"tavo://personas/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/chat": {
+      "jsonrpc": "2.0",
+      "id": 21,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/chat",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"chat\",\n  \"required\": [\n    \"characterIds\"\n  ],\n  \"resourceTemplate\": \"tavo://chats/{id}\"\n}"
+          }
+        ]
+      }
+    },
+    "tavo://schemas/message": {
+      "jsonrpc": "2.0",
+      "id": 22,
+      "result": {
+        "contents": [
+          {
+            "uri": "tavo://schemas/message",
+            "mimeType": "application/json",
+            "text": "{\n  \"kind\": \"message\",\n  \"required\": [\n    \"content\"\n  ],\n  \"resourceTemplate\": \"tavo://chats/{id}/messages\"\n}"
+          }
+        ]
+      }
+    }
+  },
+  "status_tool_call": {
+    "jsonrpc": "2.0",
+    "id": 23,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"ok\": true,\n  \"assetCounts\": {\n    \"characters\": 158,\n    \"lorebooks\": 347,\n    \"regexes\": 69,\n    \"presets\": 173,\n    \"personas\": 156\n  }\n}"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "serverInfo": {
+      "name": "tavo",
+      "title": "Tavo",
+      "version": "0.92.0"
+    },
+    "requestedProtocolVersion": "2025-06-18",
+    "negotiatedProtocolVersion": "2025-06-18",
+    "toolCount": 70,
+    "resourceCount": 18,
+    "resourceTemplateCount": 7,
+    "promptCount": 0,
+    "failedCalls": [],
+    "failedResourceReads": [],
+    "statusToolCallOk": true,
+    "docReadStatus": {
+      "tavo://capabilities": "ok",
+      "tavo://docs/macros": "ok",
+      "tavo://docs/overview": "ok",
+      "tavo://docs/plugins": "ok",
+      "tavo://docs/tavojs": "ok",
+      "tavo://docs/tools": "ok",
+      "tavo://docs/write-safety": "ok",
+      "tavo://runtime": "ok",
+      "tavo://schemas/character": "ok",
+      "tavo://schemas/chat": "ok",
+      "tavo://schemas/lorebook": "ok",
+      "tavo://schemas/lorebook-entry": "ok",
+      "tavo://schemas/message": "ok",
+      "tavo://schemas/persona": "ok",
+      "tavo://schemas/preset": "ok",
+      "tavo://schemas/regex": "ok",
+      "tavo://schemas/regex-entry": "ok"
+    }
+  }
+}

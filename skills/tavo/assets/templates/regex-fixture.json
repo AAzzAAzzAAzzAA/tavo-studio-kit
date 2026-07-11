@@ -1,0 +1,24 @@
+{
+  "name": "{{regex_suite_name}}",
+  "rules": [
+    {
+      "id": "{{rule_id}}",
+      "pattern": "{{pattern}}",
+      "replacement": "{{replacement}}",
+      "flags": "g",
+      "enabled": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "positive",
+      "input": "{{matching_input}}",
+      "expected": "{{expected_output}}"
+    },
+    {
+      "id": "negative",
+      "input": "{{non_matching_input}}",
+      "expected": "{{non_matching_input}}"
+    }
+  ]
+}

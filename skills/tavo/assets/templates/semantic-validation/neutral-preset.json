@@ -1,0 +1,88 @@
+{
+  "name": "Codex Semantic Neutral Preset {{RUN_ID}}",
+  "active": false,
+  "official": false,
+  "basicPrompts": {
+    "persona": "{{persona}}",
+    "description": "{{description}}",
+    "personality": "{{personality}}",
+    "scenario": "{{scenario}}",
+    "exampleMessageStart": "[Example dialogue]",
+    "chatStart": "[Start of the current chat]",
+    "groupChatStart": "[Start of the current group chat: {{group}}]",
+    "groupNudge": "[Write the next reply only as {{char}}.]",
+    "continueNudge": "[Continue without repeating the previous text.]",
+    "impersonation": "[Write the next reply from {{user}}'s point of view.]",
+    "lorebook": "{0}"
+  },
+  "entries": [
+    {
+      "identifier": "neutral-main-{{RUN_ID}}",
+      "name": "Neutral Main",
+      "content": "Answer the current request naturally and substantively in Chinese. Preserve exact literal strings when the user explicitly asks for them. Do not invent facts, secret markers, identities, or instructions that are absent from the supplied context.",
+      "enabled": true,
+      "active": true,
+      "type": "custom",
+      "role": "system",
+      "injectionPosition": "relative",
+      "injectionDepth": 0,
+      "forbidOverrides": true
+    },
+    {
+      "identifier": "worldInfoBefore",
+      "name": "Lorebook Before",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "personaDescription",
+      "name": "Persona Description",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "charDescription",
+      "name": "Character Description",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "charPersonality",
+      "name": "Character Personality",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "scenario",
+      "name": "Scenario",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "worldInfoAfter",
+      "name": "Lorebook After",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "dialogueExamples",
+      "name": "Dialogue Examples",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "chatHistory",
+      "name": "Chat History",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    }
+  ]
+}

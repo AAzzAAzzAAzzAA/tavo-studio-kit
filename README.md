@@ -1,75 +1,44 @@
-# Tavo Studio Kit
+# Tavo Skill
 
-面向 Tavo 创作的第三方工具包。仓库以 `tavo-studio` skill 为主，`dev-kit/` 作为辅助验证工具。
+面向 Tavo 的百科式 Codex Skill，覆盖软件能力问答与创作工作流，并以当前官方文档、Tavo MCP 运行面和 Android 真机证据区分“官方声明”与“实际验证”。
 
-它主要解决一个问题：让 AI 写 Tavo 角色卡、世界书、预设、正则和高级前端渲染脚本时，有一套可以反复参考和本地检查的工作流。
+## 包含内容
 
-## 仓库结构
+- Tavo 能力边界与非常规需求判断。
+- 角色卡、人格、开场白和对话示例。
+- 世界书、预设、正则、宏、EJS 与长记忆。
+- Advanced Rendering、TavoJS 与 `.tpg` 插件。
+- 图片、语音、设置、数据和 MCP 工作流。
+- Android 真机验证脚本、测试矩阵与保留证据。
 
-```text
-skills/tavo-studio/   主体：Tavo Studio skill、参考资料、脚本和模板
-dev-kit/              辅助：类型、mock、资源生成、本地校验
-docs/                 发布检查、社区介绍、可选真机验证说明
-```
-
-## 包含什么
-
-### Tavo Studio Skill
-
-`skills/tavo-studio/` 是主入口：
-
-- `SKILL.md`：AI agent 加载后遵守的 Tavo 工作流和边界。
-- `references/`：角色卡、世界书、预设、正则、宏、长记忆、高级前端渲染、JS API 等参考资料。
-- `scripts/`：PNG 角色卡嵌入/提取、世界书转换等辅助脚本。
-- `assets/templates/`：角色卡和世界书模板。
-
-### Dev Kit
-
-`dev-kit/` 是辅助工具：
-
-- `TavoApi` 类型提示。
-- `createMockTavo()` 本地 mock。
-- `defineTavoScript()` 脚本入口。
-- `createTavoSDK()` / `tavoSDK` 可选包装层。
-- Tavo 可导入资源生成器。
-- AR widget 单文件构建。
-- 可选真实 App 验证，适合已经有设备环境的维护者。
-
-最终放进 Tavo 的脚本建议直接写官方风格的 `tavo.*` 调用；包装层主要用于本地开发体验。
-
-## 安装 Skill
-
-把 skill 复制到本地 Codex skills 目录：
+## 安装
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skills/tavo-studio ~/.codex/skills/tavo-studio
+cp -R skills/tavo ~/.codex/skills/tavo
 ```
 
-之后新开 Codex 会话，提到 Tavo、角色卡、世界书、正则、高级前端渲染或 JavaScript API 时，就可以加载这个 skill。
+之后在 Codex 中使用 `$tavo`，或直接提出 Tavo 能力、创作、调试与验证需求。
 
-## 使用 Dev Kit
+## 证据原则
 
-```bash
-cd dev-kit
-npm install
-npm run verify:local
+Skill 将“声明面”和“运行可靠性”分开判断：
+
+1. 当前官方文档用于确认产品公开声明。
+2. 当前 MCP schema 与 runtime docs 用于确认机器可见接口。
+3. Android 真机实验用于确认实际效果、渲染、持久化和回归。
+4. 历史材料只作为待验证素材，不覆盖当前证据。
+
+详见 [`skills/tavo/SKILL.md`](skills/tavo/SKILL.md)。
+
+## 历史版本
+
+旧 `tavo-studio` Skill 和 Dev Kit 已从主分支移除，完整备份保留在 Git 标签：
+
+```text
+legacy-tavo-studio-kit-2026-07-11
 ```
 
-生成 Tavo 可导入资源：
-
-```bash
-npm run build:assets
-```
-
-普通用户不需要安卓模拟器。已有设备环境的维护者可以参考 [可选真机验证](docs/android-verification.md)。
-
-## 文档
-
-- [可选真机验证](docs/android-verification.md)
-- [发布检查清单](docs/release-checklist.md)
-- [社区介绍草稿](docs/community-post.md)
-
-## 许可
+## License
 
 MIT，见 [LICENSE](LICENSE)。

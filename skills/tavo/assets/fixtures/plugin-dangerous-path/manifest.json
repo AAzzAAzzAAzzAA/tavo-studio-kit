@@ -1,0 +1,26 @@
+{
+  "id": "codex.validation.dangerous-path",
+  "name": "Codex Dangerous Path Fixture",
+  "version": "0.92.0",
+  "entry": "../escape.js",
+  "cover": "/tmp/external-cover.png",
+  "scripts": {
+    "actions": "legacy\\actions.js"
+  },
+  "contributes": {
+    "inputActions": [
+      {
+        "id": "unsafe-icon",
+        "label": "Unsafe Icon",
+        "icon": "https://example.invalid/icon.png"
+      }
+    ],
+    "htmlFragments": [
+      {
+        "id": "unsafe-fragment",
+        "src": "ui/../../outside.html",
+        "mount": "/chat/body/end"
+      }
+    ]
+  }
+}

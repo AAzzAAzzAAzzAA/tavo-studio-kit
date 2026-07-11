@@ -1,0 +1,1258 @@
+插件开发
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+概览
+从这里开始
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+角色
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+插件开发
+用户手册
+复制本页
+插件开发
+自 v0.91.0 起
+Tavo 插件是 zip 格式的
+.tpg
+包。
+插件能做什么
+插件可以把可复用的玩法和工具加到 Tavo 中：
+添加自己的设置页，让用户调整开关、选项、文本、滑杆等配置。
+在聊天输入框
++
+菜单或右侧边栏加入动作。
+感知 chat/message 变化，并改写或取消输入框发送。
+在聊天页挂载 HTML 片段，例如状态栏、悬浮面板或消息装饰。
+通过
+TavoJS API
+操作输入框、消息、变量、生成等能力。
+如果一个扩展需要跨角色、用户身份或聊天复用，就适合做成插件；如果行为只属于某一张角色卡，通常直接写在角色卡的 TavoJS 里更合适。
+使用前提
+插件需要在聊天中开启高级渲染才能生效。插件代码独立于角色卡和消息内容中的 JavaScript；聊天内容的 JavaScript 设置不会关闭已启用插件的代码。
+包结构
+先创建一个文件夹，再把文件夹内容压缩为
+.tpg
+文件。
+manifest.json
+必须位于插件包根目录。如果插件声明了输入动作或右侧边栏动作，
+entry
+指向的文件也必须存在于插件包内。
+my-plugin/
+├── manifest.json
+├── entry.js
+├── ui/
+│ └── panel.html
+└── cover.png
+cd
+my-plugin
+zip
+-r
+../my-plugin.tpg
+manifest.json
+entry.js
+ui
+cover.png
+Tavo 会拒绝缺失 manifest、路径不安全、
+specVersion
+不支持或入口脚本文件不存在的插件包。插件路径是插件包内的虚拟相对路径，所有平台都必须使用正斜杠
+/
+，包括 Windows。不要把 OS 路径分隔符或原始
+path.join()
+输出写进 manifest 路径；不要在包里放绝对路径、Windows 反斜杠路径，也不要依赖
+../
+路径跳出插件目录。
+选择插件入口
+先按用户要完成的动作选择插件入口，再写
+manifest.json
+。一个插件可以同时声明多个入口；常见做法是用
+settings.schema
+保存配置，再用一个或多个入口触发或展示能力。
+入口
+适合场景
+注意
+contributes.inputActions
+用户正在编辑输入框、需要主动点一下完成的即时动作：生成回答草稿、改写当前输入、插入模板、追加提示词、发送前辅助。
+菜单文案单行显示；handler 当前不接收参数；没有当前消息上下文，
+tavo.message.current()
+返回
+null
+。
+contributes.sidebar
+聊天级、低频但明确的工具动作：总结聊天、导出或保存、批处理消息、刷新插件状态、打开一次性管理流程。
+这是右侧边栏里的原生动作，不是内嵌面板；第一版不支持图标、描述、动态状态或聊天类型过滤。
+contributes.htmlFragments
++
+/chat
+聊天页级常驻 UI：状态栏、悬浮面板、全局控制条、样式注入、读取当前聊天或输入框后展示的页面级信息。
+显示在聊天页面中，没有当前消息上下文。保持轻量，避免遮挡聊天 UI。
+contributes.htmlFragments
++
+/messages
+单条消息附近的 UI：消息装饰、状态标签、每条消息按钮、只挂最后一条角色消息的状态块、依赖当前消息变量的展示。
+每条匹配消息都会渲染一次，可用
+role
+/
+position
+过滤；拥有
+tavo.message.current()
+，但也更需要控制 DOM 和脚本开销。
+manifest.json
+manifest.json
+描述插件身份、入口脚本、权限声明、设置表单、输入动作、右侧边栏动作和 HTML 片段。
+{
+"id"
+:
+"com.example.quick-note"
+,
+"name"
+:
+"Quick Note"
+,
+"version"
+:
+"1.0.0"
+,
+"specVersion"
+:
+1
+,
+"entry"
+:
+"entry.js"
+,
+"author"
+:
+"Example Author"
+,
+"description"
+:
+"Adds a quick note panel to chat."
+,
+"cover"
+:
+"cover.png"
+,
+"permissions"
+: [
+"input"
+,
+"message"
+,
+"tts"
+],
+"contributes"
+: {
+"inputActions"
+: [
+{
+"id"
+:
+"insert-note"
+,
+"label"
+:
+"Insert Note"
+}
+],
+"sidebar"
+: [
+{
+"id"
+:
+"append-note"
+,
+"label"
+:
+"写入备注"
+}
+],
+"htmlFragments"
+: [
+{
+"id"
+:
+"chat-note-panel"
+,
+"src"
+:
+"ui/panel.html"
+,
+"mount"
+:
+"/chat/body/end"
+}
+],
+"settings"
+: {
+"schema"
+: [
+{
+"type"
+:
+"info"
+,
+"text"
+:
+"Configure the note panel."
+,
+"icon"
+:
+"info"
+},
+{
+"key"
+:
+"enabled"
+,
+"type"
+:
+"switch"
+,
+"label"
+:
+"Enabled"
+,
+"default"
+:
+true
+},
+{
+"key"
+:
+"mode"
+,
+"type"
+:
+"select"
+,
+"label"
+:
+"Mode"
+,
+"default"
+:
+"short"
+,
+"options"
+: [
+"short"
+,
+"detailed"
+] },
+{
+"key"
+:
+"strength"
+,
+"type"
+:
+"slider"
+,
+"label"
+:
+"Strength"
+,
+"min"
+:
+0
+,
+"max"
+:
+1
+,
+"step"
+:
+0.1
+,
+"default"
+:
+0.5
+},
+{
+"type"
+:
+"break"
+},
+{
+"key"
+:
+"template"
+,
+"type"
+:
+"textarea"
+,
+"label"
+:
+"Template"
+,
+"default"
+:
+"Remember:"
+}
+]
+}
+}
+}
+根字段
+字段
+必填
+说明
+id
+是
+小写插件 id。可使用字母、数字、
+.
+、
+_
+、
+-
+，例如
+com.author.my-plugin
+。Tavo 会将它归一为小写。
+name
+是
+显示名称。
+version
+是
+非空版本字符串。推荐使用
+1.0.0
+这样的语义化版本。
+specVersion
+否
+manifest 规范版本。v0.91.0 中可以省略，或写
+1
+。
+entry
+条件必填
+当插件声明
+contributes.inputActions
+或
+contributes.sidebar
+时必填。它指向插件入口脚本，通常是
+entry.js
+。路径必须是相对路径，不能跳出插件包，并使用
+/
+分隔。旧版
+scripts.actions
+manifest 仍会作为兼容别名生效；两者同时存在时优先使用
+entry
+。
+author
+否
+作者名，会显示在插件详情中。
+description
+否
+插件简介，会显示在列表和详情中。
+cover
+否
+插件封面图片的相对路径。
+minAppVersion
+否
+插件期望的最低 App 版本。
+permissions
+否
+字符串数组，用于说明插件需要使用的能力，例如
+input
+、
+message
+、
+generate
+、
+variable
+、
+file
+、
+network
+、
+tts
+。
+contributes
+否
+声明式插件贡献。
+Entry 脚本
+entry
+是插件的主脚本，用于注册已声明的输入 / 侧边栏动作 handler 和插件 Hooks。旧版
+scripts.actions
+仍会作为兼容别名生效。
+Action handler 使用
+TavoJS API
+与 Tavo 交互。下面只展示插件事件注册，更多输入框、消息、变量和生成接口请参考完整 API 文档。
+tavo.plugin.
+onInputAction
+(
+'insert-note'
+,
+async
+()
+=>
+{
+await
+tavo.input.
+append
+(
+'Remember: '
+);
+});
+tavo.plugin.
+onSidebarAction
+(
+'append-note'
+,
+async
+()
+=>
+{
+await
+tavo.input.
+append
+(
+'
+\n\n
+来自侧栏插件的备注'
+);
+});
+如果插件只提供设置、HTML 片段或其它声明式贡献，可以省略
+entry
+，除非它还需要执行 JavaScript。
+使用
+tavo
+在
+entry
+、
+/chat
+HTML 片段和
+/messages
+HTML 片段中直接使用
+tavo
+，例如
+await tavo.input.get()
+。Tavo 会自动让它对应当前插件。不要使用
+window.tavo
+或
+globalThis.tavo
+，它们不是插件 API 的一部分。
+/messages
+HTML 片段可以通过
+tavo.message.current()
+读取当前消息；在
+entry
+、输入框动作、侧边栏动作和
+/chat
+HTML 片段中，该方法返回
+null
+。
+// 推荐：在所有插件入口中都使用未限定的 tavo。
+tavo.plugin.
+onInputAction
+(
+'guide'
+,
+async
+()
+=>
+{
+const
+input
+=
+await
+tavo.input.
+get
+();
+await
+tavo.input.
+set
+(
+`Draft:
+\n
+${
+input
+}`
+);
+});
+// 不建议：插件代码不要使用 window/globalThis。
+// const input = await window.tavo.input.get();
+// const cfg = globalThis.tavo.plugin.config.get('basePrompt');
+读取插件设置
+contributes.settings.schema
+声明设置页的表单结构和默认值；插件代码通过
+tavo.plugin.config
+读取该插件的
+有效配置值
+。这两个方法是同步、只读 API，不需要
+await
+：
+const
+enabled
+=
+tavo.plugin.config.
+get
+(
+'enabled'
+);
+const
+config
+=
+tavo.plugin.config.
+all
+();
+get(key)
+返回用户已保存的值；没有用户值时回退到 schema 中该字段的
+default
+。key 不存在且没有默认值时返回
+null
+。
+all()
+返回该插件全部有效配置值的浅拷贝，包括 schema 默认值和用户覆盖值。修改返回对象不会保存或改变插件设置。
+tavo.plugin.config
+可在
+entry
+、输入框 / 侧边栏 action handler、
+/chat
+和
+/messages
+HTML 片段中使用，并且只会读取当前插件的配置。
+该 API 不返回原始
+contributes.settings.schema
+定义，也不提供写入方法。schema 仍由插件自己的
+manifest.json
+声明，用户通过 Tavo 的插件设置页修改配置。
+输入动作
+contributes.inputActions
+用来声明聊天输入框
++
+菜单里的动作。
+{
+"contributes"
+: {
+"inputActions"
+: [
+{
+"id"
+:
+"insert-note"
+,
+"label"
+:
+"Insert Note"
+}
+]
+}
+}
+字段
+必填
+说明
+id
+是
+稳定的动作 id。
+label
+是
+菜单里显示的文案。
+icon
+否
+可选图标名，供后续兼容使用。
+输入动作的 handler 写在
+entry
+指向的文件里。推荐使用
+onInputAction
+；它会注册底层事件
+inputActions:<action-id>
+：
+tavo.plugin.
+onInputAction
+(
+'insert-note'
+,
+async
+()
+=>
+{
+await
+tavo.input.
+append
+(
+'Remember: '
+);
+});
+也可以使用底层事件形式：
+tavo.plugin.on('inputActions:<id>', handler)
+。新插件推荐优先使用
+onInputAction(id, handler)
+；它会校验
+id
+，并注册到底层
+inputActions:<id>
+事件。
+侧边栏动作
+contributes.sidebar
+用来声明聊天右侧边栏里的动作。
+{
+"contributes"
+: {
+"sidebar"
+: [
+{
+"id"
+:
+"append-note"
+,
+"label"
+:
+"写入备注"
+}
+]
+}
+}
+字段
+必填
+说明
+id
+是
+稳定的动作 id。
+label
+是
+右侧边栏行里显示的文案。
+侧边栏动作的 handler 写在
+entry
+指向的文件里。推荐使用
+onSidebarAction
+；它会注册底层事件
+sidebar:<action-id>
+：
+tavo.plugin.
+onSidebarAction
+(
+'append-note'
+,
+async
+()
+=>
+{
+await
+tavo.input.
+append
+(
+'
+\n\n
+来自侧栏插件的备注'
+);
+});
+也可以使用底层事件形式：
+tavo.plugin.on('sidebar:<id>', handler)
+。新插件推荐优先使用
+onSidebarAction(id, handler)
+；它会校验
+id
+，并注册到底层
+sidebar:<id>
+事件。
+原生输入框和侧边栏派发不区分 handler 是通过 helper 还是
+plugin.on
+注册的；它只查找最终事件名。使用
+plugin.on
+时，
+<id>
+必须和
+contributes.inputActions[].id
+/
+contributes.sidebar[].id
+完全一致，包括大小写、连字符等字符。
+同一个插件声明多个侧边栏动作时，Tavo 会把它们显示在同一个分组里，标题为
+插件 · 插件名
+。
+插件 Hooks
+entry
+脚本通过
+tavo.plugin.on(type, handler)
+注册 Hooks。
+Chat 与 Message 通知
+这些 Hooks 用来感知聊天和消息变化，不能修改或阻止聊天与生成流程。单个 handler 报错不会影响聊天或其它插件。
+事件
+触发时机
+chat:opened
+当前聊天打开时。
+chat:closed
+离开当前聊天或切换到其它聊天时。
+chat:updated
+当前 chat 的元数据更新，例如标题、角色、persona、preset、lorebooks、memory 或背景变化。
+chat:changed
+chat:updated
+的兼容别名；handler 收到的
+event.type
+仍为
+chat:updated
+。
+message:added
+一条消息添加并保存到当前 chat 后；流式生成过程中不会重复触发。
+message:updated
+当前 chat 中已保存消息的内容或元数据发生变化时。
+message:deleted
+一条消息从当前 chat 中删除时。
+message:changed
+在
+message:added
+、
+message:updated
+或
+message:deleted
+之后触发的 umbrella 事件。
+具体的 message 事件会先触发，随后触发
+message:changed
+。如果插件启用时用户已经打开聊天，也会收到一次
+chat:opened
+。
+所有事件对象都包含
+type
+、
+pluginId
+和 ISO 时间字符串
+at
+。chat 事件还包含
+chatId
+和
+chat
+；message 事件还包含
+chatId
+、
+change
+和
+message
+。
+tavo.plugin.
+on
+(
+'chat:opened'
+,
+async
+(
+event
+)
+=>
+{
+console.
+log
+(
+'打开聊天'
+, event.chat?.name
+||
+event.chatId);
+});
+tavo.plugin.
+on
+(
+'message:changed'
+,
+async
+(
+event
+)
+=>
+{
+console.
+log
+(event.type, event.change, event.message?.id, event.at);
+});
+生成生命周期 Hooks
+这些 Hooks 只能在已安装插件的
+entry
+脚本中通过
+tavo.plugin.on(...)
+注册；HTML 片段、角色卡和消息内容中的 TavoJS 不能注册或接收这些事件。manifest 应声明
+"permissions": ["generate"]
+。
+tavo.plugin.
+on
+(
+'generation:prepare'
+,
+async
+(
+event
+)
+=>
+{
+event.text
+=
+'[Model-only context]
+\n
+'
++
+event.text;
+});
+tavo.plugin.
+on
+(
+'generation:success'
+,
+async
+(
+event
+)
+=>
+{
+event.text
+=
+event.text.
+trim
+();
+});
+tavo.plugin.
+on
+(
+'generation:error'
+,
+async
+(
+event
+)
+=>
+{
+console.
+error
+(event.error.code, event.error.message);
+});
+tavo.plugin.
+on
+(
+'generation:cancelled'
+,
+async
+(
+event
+)
+=>
+{
+console.
+log
+(
+'stopped'
+, event.partial);
+});
+每个事件都有只读的
+generationId
+、
+chatId
+、
+source
+、
+at
+、
+type
+和
+pluginId
+。目前会响应
+reply
+、
+groupReply
+、
+continuation
+、
+othersContinuation
+和
+regeneration
+；不会响应图片、语音、总结、独立生成或纯 TavoJS/JSAPI 发起的生成。
+generation:prepare
+在模型请求开始前运行。
+event.text
+是本次请求发送给模型的最后一条用户消息；修改只影响本次模型请求，不会修改聊天中已保存的消息，并且可以设为空。
+generation:success
+在生成和 extension 处理完成后、角色消息保存前运行；可改写的最终正文必须 非空，空改写会被丢弃。
+generation:error
+在生成失败时通知插件，
+event.error
+提供
+code
+和
+message
+。
+generation:cancelled
+是含布尔
+partial
+的非阻塞终止通知。
+partial: true
+仍会保存半截响应， 随后触发现有的
+message:added
+；
+partial: false
+不会保存消息。
+generation:prepare
+与
+generation:success
+的 handler 按注册顺序运行，每个最多等待 5 秒。handler 报错、超时或写入无效文本时，Tavo 会忽略该 handler 的修改并继续生成；这两个 Hooks 不能取消生成。每次生成只会触发
+generation:success
+、
+generation:error
+或
+generation:cancelled
+中的一个。
+输入发送 Hooks
+input:beforeSend
+拦截发送按钮 / 回车、
+tavo.input.send()
+和 MCP
+tavo_input_send
+；
+input:afterSend
+在 Tavo 接受输入后通知插件。manifest 应声明
+"permissions": ["input"]
+。
+tavo.plugin.
+on
+(
+'input:beforeSend'
+,
+async
+(
+event
+)
+=>
+{
+event.text
+=
+event.text.
+trim
+();
+if
+(
+!
+event.text.
+includes
+(
+':'
+)) event.
+cancel
+(
+'请补充角色名'
+);
+});
+tavo.plugin.
+on
+(
+'input:afterSend'
+,
+async
+(
+event
+)
+=>
+{
+console.
+log
+(
+'输入已接受：'
+, event.text);
+});
+before-send 在 macros 展开和 slash command 解析前运行。
+type
+、
+pluginId
+、
+chatId
+、
+source
+、
+at
+只读；
+text
+是唯一可修改字段且必须保持字符串。
+source
+为
+ui
+、
+tavojs
+或
+mcp
+。handler 返回值会被忽略；请调用
+event.cancel(reason?)
+显式取消。
+handler 按插件和注册顺序运行，每个最多等待 5 秒。handler 报错、超时或把
+text
+改成非字符串时，Tavo 会忽略该 handler 的修改并继续发送。显式取消会停止后续 handler，并保留之前 handler 已完成的文本修改和附件。
+input:afterSend
+不等待模型回复或生图完成。
+HTML 片段
+contributes.htmlFragments
+用来声明显示在聊天页或消息附近的本地 HTML 文件。
+HTML 片段中的脚本属于已安装插件，不受聊天内容的 JavaScript 设置影响；该设置只控制角色卡、模型输出和其它消息气泡内容中的脚本。
+{
+"contributes"
+: {
+"htmlFragments"
+: [
+{
+"id"
+:
+"chat-panel"
+,
+"src"
+:
+"ui/panel.html"
+,
+"mount"
+:
+"/chat/body/end"
+},
+{
+"id"
+:
+"message-tail"
+,
+"src"
+:
+"ui/tail.html"
+,
+"mount"
+:
+"/messages/end?role=character&position=last"
+}
+]
+}
+}
+字段
+必填
+说明
+id
+是
+稳定的片段 id。
+src
+是
+插件包内的相对文件路径。不能是绝对路径，不能包含
+\
+，不能是 URL，也不能用
+../
+跳出目录。
+mount
+是
+挂载位置。当前支持
+/chat/...
+和
+/messages...
+。
+支持的聊天挂载点：
+/chat
+/chat/head/start
+/chat/head/end
+/chat/body/start
+/chat/body/end
+支持的消息挂载点：
+/messages/start
+/messages/end
+/messages/start?role=user
+/messages/end?role=character
+/messages/end?position=last
+/messages/end?role=character&position=last
+消息挂载点中，
+role
+可为
+user
+或
+character
+；
+position
+可为
+first
+或
+last
+。
+设置 Schema
+contributes.settings.schema
+是一个平铺数组，Tavo 会按顺序渲染到插件设置页。
+这里声明的是设置表单 schema。插件代码应使用
+tavo.plugin.config.get(key)
+/
+all()
+读取合并 schema 默认值与用户保存值后的有效配置；插件 API 不提供原始 schema 查询。
+类型
+必填字段
+可选字段
+说明
+switch
+key
+,
+label
+default
+布尔开关。
+select
+key
+,
+label
+,
+options
+default
+options
+必须是非空数组。
+slider
+key
+,
+label
+,
+min
+,
+max
+step
+,
+default
+max
+必须大于
+min
+；
+step
+必须大于 0。
+text
+key
+,
+label
+default
+单行文本输入。
+textarea
+key
+,
+label
+default
+多行文本输入。
+info
+text
+icon
+icon
+可为
+info
+或
+warning
+。
+divider
+无
+无
+整宽分割线。
+break
+无
+无
+开始新的设置分组，不渲染可见控件。
+字段类元素用
+key
+作为存储配置的键。发布后尽量不要改
+key
+，除非你有意重置用户已有配置。
+使用 AI Agent 开发
+AI Agent 指能直接帮你操作项目文件和工具的编码助手，例如 Codex、Claude Code、Trae、CodeBuddy 等。连接到 Tavo 的 MCP Server 后，它可以读取当前 App 暴露的资源文档和工具，并按你的需求创建插件。
+在 Tavo 中打开
+设置
+->
+MCP Server
+，启用 MCP Server。
+按照
+MCP Server
+中的说明连接 AI Agent。
+让 AI Agent 先读取 MCP Server 内部的插件资源文档，例如
+tavo://docs/plugins
+。
+直接提出插件需求，并在 Tavo 中启用插件后先在备份聊天中测试。
+如果想要发布插件，可以让 AI Agent 打包出
+.tpg
+文件。
+可以从这样的提示词开始：
+先读取 Tavo MCP Server 内部的插件资源文档，例如 tavo://docs/plugins。
+帮我做一个名为 Quick Note 的 Tavo 插件。
+manifest 使用 specVersion 1，entry.js 放在插件包根目录。
+插件需要一个名为 insert-note 的输入动作、一个名为 enabled 的 switch 设置，
+并提供挂载到 /chat/body/end 的 HTML 片段。
+完成后先在 Tavo 里安装、启用并测试；如果我要发布，请帮我打包成 .tpg 文件。
+使用对话式 AI 辅助开发
+对话式 AI 如 ChatGPT、Claude、豆包、DeepSeek 等，是主要通过聊天窗口协作的 AI。它们适合帮你设计插件思路、生成
+manifest.json
+、编写
+entry.js
+和 HTML 片段，再由你复制到本地打包测试。
+文档每一页都有
+复制本页
+按钮，可以直接复制当前页面的 Markdown 内容，粘贴给对话式 AI 作为上下文。建议把你的插件目标、目标 Tavo 版本、需要的入口和设置项一起发给它。
+点击本页的
+复制本页
+。
+把复制出的 Markdown 和你的插件需求一起发给对话式 AI。
+要求它输出文件树、
+manifest.json
+、
+entry.js
+和需要的 HTML 片段。
+把生成的文件复制到本地插件文件夹，打包为
+.tpg
+（zip 格式）后在备份聊天中测试。
+如果安装或运行失败，把 Tavo 的报错和当前文件内容贴回去，让它继续修改。
+发布前检查
+分享插件前：
+在干净的 Tavo 配置或备份聊天中安装一次。
+确认插件包根目录包含
+manifest.json
+；如果插件声明了输入动作或侧边栏动作，也要确认
+entry
+指向的文件存在。
+确认所有 HTML fragment 的
+src
+文件都存在。
+确认每个设置字段都有稳定的
+key
+。
+确认权限列表没有超出实际需要。
+保留生成
+.tpg
+的源文件夹，方便之后维护。
+插件使用
+安全地安装和管理 Tavo 插件包。
+其他
+**1. 存储空间管理** - 存储空间
+目录
+插件开发
+插件能做什么
+包结构
+选择插件入口
+manifest.json
+根字段
+Entry 脚本
+使用
+tavo
+读取插件设置
+输入动作
+侧边栏动作
+插件 Hooks
+Chat 与 Message 通知
+生成生命周期 Hooks
+输入发送 Hooks
+HTML 片段
+设置 Schema
+使用 AI Agent 开发
+使用对话式 AI 辅助开发
+发布前检查

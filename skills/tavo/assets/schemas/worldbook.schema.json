@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codex.local/tavo/schemas/worldbook.schema.json",
+  "title": "Tavo Worldbook Candidate Fixture",
+  "type": "object",
+  "required": ["name", "entries"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "entries": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": { "$ref": "#/$defs/entry" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/entry" }
+        }
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": ["content"],
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "keywords": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "comment": { "type": "string" },
+        "content": { "type": "string", "minLength": 1 },
+        "enabled": { "type": "boolean" },
+        "constant": { "type": "boolean" },
+        "selective": { "type": "boolean" },
+        "order": { "type": "integer" },
+        "priority": { "type": "integer" },
+        "position": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

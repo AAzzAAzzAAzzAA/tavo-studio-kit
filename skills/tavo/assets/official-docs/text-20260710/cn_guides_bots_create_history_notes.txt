@@ -1,0 +1,97 @@
+Post-History Instructions
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+角色
+创建角色和导入角色卡
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+角色
+自建角色
+角色描述
+第一条消息
+Main Prompt
+性格特点
+情景设定
+备注（Creator Notes）
+标签(Tags)
+对话示例
+来源（Source）
+昵称（nickname）
+群聊开场白
+Post-History Instructions
+角色卡 URL 导入
+角色卡文件导入
+用户身份
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+Post-History Instructions
+用户手册
+角色
+自建角色
+复制本页
+Post-History Instructions
+“看完聊天记录后，你该怎么继续”
+这是干嘛的？
+👉 每次回复前，提醒角色：
+结合已经聊过的内容，保持一致的性格和关系状态。
+它的作用更偏向：
+连贯性
+情感延续
+关系推进
+同样支持
+{｛original}}
+。
+什么时候需要写？
+你很在意“关系不会突然重置”
+不想角色忽冷忽热
+希望暧昧、信任、亲密是累积的
+示例:
+{｛original}}
+根据之前的对话内容，
+自然延续你和用户的关系变化，
+不要突然变得陌生或失忆。
+📌
+小技巧
+这是“提醒角色别断片”
+非常适合恋爱向、长期聊天角色
+群聊开场白
+**这是干嘛的？**
+角色卡URL导入
+aicharactercards.com chub.ai janitorai.com pygmalion.chat realm.risuai.net
+目录
+Post-History Instructions
+“看完聊天记录后，你该怎么继续”

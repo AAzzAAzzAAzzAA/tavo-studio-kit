@@ -1,9 +1,7 @@
-node_modules/
-dist/
-reports/
-.env*
-!.env.example
-*.log
-*.tgz
-coverage/
+__pycache__/
+*.py[cod]
+skills/tavo/artifacts/
 .DS_Store
+.env
+.env.*
+*.log

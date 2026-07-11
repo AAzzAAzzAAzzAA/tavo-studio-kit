@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tavo"
+  short_description: "Complete Tavo encyclopedia and creation workflows"
+  default_prompt: "Use $tavo to answer Tavo capability questions or create validated cards, worldbooks, regexes, EJS, TavoJS, plugins, and MCP workflows."

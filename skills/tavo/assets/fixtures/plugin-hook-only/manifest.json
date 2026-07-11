@@ -1,0 +1,7 @@
+{
+  "id": "codex.validation.hook-only",
+  "name": "Codex Hook Only Fixture",
+  "version": "0.92.0",
+  "entry": "entry.js",
+  "permissions": ["input"]
+}

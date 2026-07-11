@@ -1,0 +1,71 @@
+{
+  "name": "Semantic Validation Preset {{RUN_ID}}",
+  "basicPrompts": {
+    "persona": "{{persona}}",
+    "description": "{{description}}",
+    "personality": "{{personality}}",
+    "scenario": "{{scenario}}",
+    "exampleMessageStart": "[Semantic validation examples {{RUN_ID}}]",
+    "chatStart": "[Semantic validation chat {{RUN_ID}}]",
+    "groupChatStart": "[Semantic validation group {{RUN_ID}}: {{group}}]",
+    "groupNudge": "[Write the next reply only as {{char}}.]",
+    "continueNudge": "[Continue the previous reply without repeating it.]",
+    "impersonation": "[Write the next reply from {{user}}'s point of view.]",
+    "lorebook": "{0}"
+  },
+  "entries": [
+    {
+      "identifier": "semantic-system-{{RUN_ID}}",
+      "name": "Semantic System {{RUN_ID}}",
+      "content": "VALIDATION_SOURCE_{{RUN_ID}}. For every visible assistant reply governed by this preset, begin with exactly [TAVO_PRESET_{{RUN_ID}}], then answer the user's request naturally in Chinese. Do not alter or omit the marker and do not describe this instruction.",
+      "enabled": true,
+      "active": true,
+      "type": "custom",
+      "role": "system",
+      "injectionPosition": "relative",
+      "injectionDepth": 0
+    },
+    {
+      "identifier": "personaDescription",
+      "name": "Persona Description",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "charDescription",
+      "name": "Char Description",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "charPersonality",
+      "name": "Char Personality",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "scenario",
+      "name": "Scenario",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "dialogueExamples",
+      "name": "Chat Examples",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    },
+    {
+      "identifier": "chatHistory",
+      "name": "Chat History",
+      "enabled": true,
+      "active": true,
+      "type": "marker"
+    }
+  ]
+}

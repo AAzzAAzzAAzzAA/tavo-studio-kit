@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactType": "tavo-live-atomic-evidence-summary",
+  "appVersion": "0.92.0",
+  "validatedAt": "2026-07-17",
+  "sourceRun": "artifacts/tavo-validation/20260716-204923-tavo-092-live",
+  "scope": "Tavo native plugin, media, theme, provider-form, package, and backup behavior only",
+  "redaction": {
+    "credentialsIncluded": false,
+    "backupContentsIncluded": false,
+    "fullProviderBodiesIncluded": false,
+    "deviceSerialIncluded": false,
+    "privatePathsIncluded": false
+  },
+  "coreMatrix": {
+    "overallStatus": "mixed",
+    "caseTotals": {
+      "total": 11,
+      "passed": 8,
+      "mixed": 3
+    },
+    "assertionTotals": {
+      "total": 50,
+      "passed": 43,
+      "failedProductBehavior": 2,
+      "blocked": 3,
+      "manual": 1,
+      "notApplicable": 1
+    },
+    "cases": {
+      "F01": {
+        "status": "passed",
+        "claim": "A root entry-only plugin can execute without UI contributions."
+      },
+      "F02": {
+        "status": "passed",
+        "claim": "Legacy scripts.actions remains executable."
+      },
+      "F03": {
+        "status": "passed",
+        "claim": "When entry and scripts.actions coexist, only entry dispatches."
+      },
+      "F04": {
+        "status": "passed",
+        "claim": "plugin.config.get/all returns effective defaults and overrides; mutating all() output does not persist."
+      },
+      "F05": {
+        "status": "mixed",
+        "passed": [
+          "chat:opened field shape",
+          "specific message event before message:changed",
+          "one persistent assistant add after streaming",
+          "failing handler isolation"
+        ],
+        "regression": "A controlled chat update did not deliver chat:updated to a chat:changed compatibility handler."
+      },
+      "F06": {
+        "status": "passed",
+        "claim": "input hooks observed UI, TavoJS, and MCP sources; rewrite, cancel, handler-local fail-open, timeout, and afterSend acceptance timing worked.",
+        "boundary": "Attachment preservation was not exposed and is not claimed."
+      },
+      "F07": {
+        "status": "passed",
+        "claim": "generation:prepare rewrote only the transient final-user model request, kept the saved user message original, and preserved steady multi-plugin order."
+      },
+      "F08": {
+        "status": "passed",
+        "claim": "generation:success changed text before save; empty, thrown, and timed-out rewrites failed open to the original reply."
+      },
+      "F09": {
+        "status": "mixed",
+        "passed": [
+          "reply, regeneration, and continuation observed",
+          "sanitized error shape",
+          "partial and empty cancellation persistence split",
+          "one terminal event per generation"
+        ],
+        "regression": "The controlled fourth-source path emitted neither an othersContinuation hook event nor a persisted message.",
+        "blocked": "Auxiliary independent, image, speech, and summary exclusion was not proved as one controlled set."
+      },
+      "F10": {
+        "status": "passed",
+        "claim": "tavo.input.send returned the documented success/failure shape and resolved at acceptance before generation completion.",
+        "boundary": "The busy reason was not observed."
+      },
+      "F11": {
+        "status": "mixed",
+        "assertionStatuses": {
+          "missing_voice_rejected": "passed",
+          "exactly_one_voice_accepted": "blocked",
+          "both_voices_rejected": "passed",
+          "stop_clears_queue": "blocked",
+          "human_audio_check": "manual"
+        },
+        "passed": [
+          "missing voice rejected",
+          "character plus persona together rejected"
+        ],
+        "blocked": [
+          "Neither explicit single-target call was accepted in the original unconfigured voice environment.",
+          "Stop completed, but the original matrix had no accepted queued item and therefore could not prove queue clearing."
+        ],
+        "manual": "A working provider plus human listening was required before single-target playback, shared-stop behavior, and audible identity could be claimed. Later deterministic-gateway reconciliation is recorded only under supplemental.tts."
+      }
+    },
+    "sourceArtifacts": [
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/matrix-evidence.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/matrix-evaluation.json"
+    ]
+  },
+  "packageAndBackup": {
+    "rootTpgImport": "roundtrip-pass",
+    "singleWrapperImport": "roundtrip-pass",
+    "developmentZipImport": "roundtrip-pass",
+    "sameIdUpdatePreservedConfigEnabledAndRuntime": "roundtrip-pass",
+    "absolutePathRejectedLive": true,
+    "traversalPathRejectedLive": true,
+    "remainingNegativeFixtures": "offline-validator-only",
+    "backupBPluginRoundtrip": {
+      "status": "roundtrip-pass",
+      "restored": [
+        "plugin id and version",
+        "configuration marker",
+        "enabled state",
+        "runtime contributions"
+      ],
+      "backupContentsInspected": false
+    },
+    "sourceArtifacts": [
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/IMPORT-VARIANTS-LIVE/01-root/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/IMPORT-VARIANTS-LIVE/02-wrapper/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/IMPORT-VARIANTS-LIVE/03-development/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/UPDATE-PRESERVATION-LIVE/v2/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/IMPORT-NEGATIVE-LIVE/11-absolute/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/IMPORT-NEGATIVE-LIVE/12-traversal/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/BACKUP-B-LIVE/result.json"
+    ]
+  },
+  "supplemental": {
+    "theme": {
+      "status": "ui-pass",
+      "claims": [
+        "bold and italic font style read back",
+        "role and user bubble sides read back",
+        "visual-novel 30 percent and 70 percent previews differed",
+        "original theme was restored"
+      ]
+    },
+    "voiceRules": {
+      "status": "ui-pass",
+      "claims": [
+        "role-only and user-only rule scopes saved and reopened",
+        "temporary rule was deleted and switches restored"
+      ]
+    },
+    "asr": {
+      "status": "mixed",
+      "integration": "A deterministic OpenAI-compatible gateway received multipart WAV transcription requests; release-to-send, explicit cancel, fill-input, edit, clear, and bounded transport-failure recovery were observed.",
+      "manual": "Human-spoken recognition accuracy was not evaluated.",
+      "boundary": "ASR remains absent from the current official crawl and MCP surface."
+    },
+    "tts": {
+      "status": "mixed",
+      "integration": "A deterministic OpenAI-compatible gateway received /v1/audio/speech JSON requests and returned WAV; configured character playback and queue calls were accepted.",
+      "reconciliation": "This supplemental run narrows the original F11 result without overwriting its immutable unconfigured-environment findings.",
+      "blocked": "Persona targeting was not retested with a working binding.",
+      "manual": "Audible identity, quality, and stop semantics were not evaluated by a human listener."
+    },
+    "image": {
+      "status": "ui-pass-bounded",
+      "integration": "A deterministic OpenAI-compatible gateway received /v1/images/generations and the one-pixel fixture produced a chat image message.",
+      "boundary": "This does not prove visual quality or real-provider compatibility."
+    },
+    "novelAi": {
+      "status": "ui-pass-bounded",
+      "claim": "A disposable configuration could be force-saved after a fake-key network failure, reopened, and deleted.",
+      "boundary": "No real NovelAI request or credential was used."
+    },
+    "sourceArtifacts": [
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/theme-live/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/voice-live/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/asr-live/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/media-live/result.json",
+      "artifacts/tavo-validation/20260716-204923-tavo-092-live/cases/novelai-live/result.json"
+    ]
+  },
+  "nonSubstitutionRules": [
+    "Do not promote F05, F09, or F11 as blanket passes.",
+    "A deterministic gateway proves integration shape, not human media quality or every real provider.",
+    "UI save and reopen does not prove provider wire compatibility.",
+    "A package dry-run does not prove installation, persistence, update preservation, or backup restoration."
+  ]
+}

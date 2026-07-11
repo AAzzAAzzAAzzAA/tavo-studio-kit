@@ -1,15 +1,9 @@
-# 安全说明
+# Security
 
-不要发布 API key、私有端点地址、私人聊天内容、未脱敏报告或私人截图。
+Tavo 插件、Advanced Rendering、TavoJS、MCP 和请求捕捉脚本可能接触模型请求、聊天内容与外部服务。
 
-本地密钥应放在 `.env.local`，这个文件已被 Git 忽略，也不会进入分享包。
-
-分享日志前请脱敏：
-
-- `Authorization` header
-- bearer token
-- API key
-- 私有模型端点
-- 私人聊天内容
-
-如果发现这个工具包自身的安全问题，可以在 GitHub 仓库里开安全反馈；如果问题属于 Tavo App 本身，应反馈给 Tavo 维护者。
+- 只安装可信 `.tpg` 文件。
+- 测试凭据使用假 token；真实凭据不得进入仓库或证据包。
+- 发布真机证据前扫描 Authorization、API key、Cookie、本机路径和局域网地址。
+- 原始真机采集只保存在私有工作区；公开仓库忽略 `skills/tavo/artifacts/`，只接受 `assets/evidence/` 下经过脱敏的摘要。
+- 安全问题请通过 GitHub 私密漏洞报告联系维护者。

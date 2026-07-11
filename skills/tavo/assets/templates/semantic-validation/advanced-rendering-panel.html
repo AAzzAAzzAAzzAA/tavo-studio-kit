@@ -1,0 +1,130 @@
+<section class="semantic-panel" data-semantic-panel="{{RUN_ID}}">
+  <style>
+    .semantic-panel {
+      box-sizing: border-box;
+      width: min(100%, 560px);
+      margin: 12px auto;
+      padding: 14px;
+      border: 1px solid #9aa3ad;
+      border-radius: 8px;
+      background: #f7f8fa;
+      color: #1f2933;
+      font-family: system-ui, sans-serif;
+    }
+    .semantic-panel h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+    .semantic-panel .semantic-marker {
+      margin: 0 0 12px;
+      color: #52606d;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    .semantic-panel .semantic-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .semantic-panel button {
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid #68737d;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #17202a;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.25;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+    .semantic-panel button:focus-visible {
+      outline: 2px solid #0969da;
+      outline-offset: 2px;
+    }
+    .semantic-panel .semantic-status {
+      min-height: 20px;
+      margin: 10px 0 0;
+      color: #334e68;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 420px) {
+      .semantic-panel .semantic-actions {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+
+  <h3>语义验证面板</h3>
+  <p class="semantic-marker">AR_PANEL_{{RUN_ID}}</p>
+  <div class="semantic-actions">
+    <button type="button" data-action="observe">AR 观察场景</button>
+    <button type="button" data-action="clarify">AR 澄清目标</button>
+    <button type="button" data-action="state">AR 核对状态</button>
+    <button type="button" data-action="plan">AR 规划下一步</button>
+    <button type="button" data-action="evidence">AR 汇总证据</button>
+  </div>
+  <p class="semantic-status" role="status" aria-live="polite">等待操作</p>
+
+  <script>
+    (() => {
+      const script = document.currentScript;
+      const root = (script && script.closest('[data-semantic-panel="{{RUN_ID}}"]')) ||
+        document.querySelector('[data-semantic-panel="{{RUN_ID}}"]');
+      if (!root) return;
+      const status = root.querySelector('.semantic-status');
+      const setAndRead = (key) => {
+        tavo.set(key, 'clicked', 'chat');
+        return tavo.get(key, 'chat');
+      };
+      const actions = {
+        observe: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.ar.observe');
+          await tavo.input.set(`请观察当前场景，列出三个最值得互动的线索，并解释每条线索的风险。（AR_{{RUN_ID}}_OBSERVE state=${state}）`);
+          return `AR_{{RUN_ID}}_OBSERVE state=${state}`;
+        },
+        clarify: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.ar.clarify');
+          await tavo.input.append(` 请先用一句话确认我当前最重要的目标，再提出一个真正必要的澄清问题。（AR_{{RUN_ID}}_CLARIFY state=${state}）`);
+          return `AR_{{RUN_ID}}_CLARIFY state=${state}`;
+        },
+        state: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.ar.state');
+          await tavo.input.set(`请核对目前的状态，把已经确认、仍不确定和互相矛盾的信息分别列出。（AR_{{RUN_ID}}_STATE state=${state}）`);
+          return `AR_{{RUN_ID}}_STATE state=${state}`;
+        },
+        plan: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.ar.plan');
+          await tavo.input.append(` 请给出下一步行动方案，包含首选方案、备选方案和明确的停止条件。（AR_{{RUN_ID}}_PLAN state=${state}）`);
+          return `AR_{{RUN_ID}}_PLAN state=${state}`;
+        },
+        evidence: async () => {
+          const state = setAndRead('semantic.{{RUN_ID}}.ar.evidence');
+          await tavo.input.set(`请把本轮获得的证据压缩成五条可复核结论，并为每条结论注明依据。（AR_{{RUN_ID}}_EVIDENCE state=${state}）`);
+          return `AR_{{RUN_ID}}_EVIDENCE state=${state}`;
+        }
+      };
+
+      root.addEventListener('click', async (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button || !root.contains(button)) return;
+        const action = actions[button.dataset.action];
+        if (!action) return;
+        button.disabled = true;
+        status.textContent = '正在写入输入框';
+        try {
+          const marker = await action();
+          status.textContent = `已写入 ${marker}`;
+        } catch (error) {
+          status.textContent = `失败：${error && error.message ? error.message : String(error)}`;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</section>

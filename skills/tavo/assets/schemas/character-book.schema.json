@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codex.local/tavo/schemas/character-book.schema.json",
+  "title": "Portable Character Book",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "scan_depth": { "type": "integer", "minimum": 0 },
+    "token_budget": { "type": "integer", "minimum": 0 },
+    "recursive_scanning": { "type": "boolean" },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "required": ["entries"],
+  "additionalProperties": true,
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": ["keys", "content"],
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "secondary_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "comment": { "type": "string" },
+        "content": { "type": "string" },
+        "constant": { "type": "boolean" },
+        "selective": { "type": "boolean" },
+        "insertion_order": { "type": "integer" },
+        "enabled": { "type": "boolean" },
+        "position": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

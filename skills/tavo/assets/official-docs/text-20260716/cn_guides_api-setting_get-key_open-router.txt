@@ -1,0 +1,112 @@
+OpenRouter API
+Tavo Docs
+搜索文档
+⌘
+K
+下载 Tavo
+概览
+API
+角色
+聊天
+语音
+自定义
+脚本
+应用
+Tavo Docs
+API
+密钥、供应商和模型
+下载 Tavo
+欢迎
+用户手册
+基础设置
+API 与模型
+获取密钥
+Volink API
+OpenAI API
+Claude API
+Gemini API
+DeepSeek API
+OpenRouter API
+豆包/火山云/字节跳动API密钥获取
+“自定义（OpenAI 协议）”功能说明与使用指南
+API 设置
+模型设置
+常见错误及解决方法
+角色
+聊天
+语音与生图
+自定义与记忆
+主题
+预设
+世界书
+正则
+长记忆
+高级前端渲染（Web）
+高级功能
+TavoJS API
+宏（Macros）
+EJS 模板
+MCP Server
+插件使用
+插件开发
+应用
+应用与数据
+常见问题
+隐私政策
+服务条款
+OpenRouter API
+用户手册
+API 与模型
+获取密钥
+复制本页
+OpenRouter API
+想要使用 OpenRouter 平台的AI模型能力，整个过程主要分为两步：
+首先，在 OpenRouter 平台注册一个账号；
+其次，在账号内创建并保管好你的 API 密钥。
+以下是 OpenRouter 平台的完整入门流程。指引遵循“先注册，后取钥”的逻辑，带你从零开始，轻松上手。
+1.邮箱 + 密码 注册
+访问 OpenRouter 注册页。
+在“Email address”与“Password”输入框中填写有效邮箱和密码，并勾选同意服务条款，点击Continue继续。
+登录所填邮箱，点击OpenRouter发送的验证链接完成账号激活。
+小贴士：
+如果收不到验证邮件，可检查垃圾邮件箱，或尝试使用常用的Gmail/Outlook企业邮箱注册。
+2.GitHub 一键登录
+在注册页点击 “Sign in with GitHub” 按钮，系统会跳转到GitHub授权页面。
+授权后，OpenRouter自动创建并登录与该GitHub账户关联的新账号，无需额外设置密码
+优点：
+无需记忆新密码，且后续所有登录均通过GitHub进行。
+3.Google 一键登录
+点击注册页的 “Sign in with Google” 按钮，通过Google OAuth完成授权。
+授权成功后，系统自动以该Google账号创建并登录OpenRouter账号，无需填写邮箱验证码。
+适用场景：
+已有Google生态账号、希望快速注册且省去邮箱验证步骤的用户。
+4.MetaMask 钱包登录
+在注册页选择 “Sign in with MetaMask”，浏览器将弹出MetaMask扩展或DApp界面。
+用户确认钱包签名后，即完成OpenRouter账号的创建与登录。
+应用场景：
+Web3用户或希望不依赖邮箱/密码的用户，可直接用区块链钱包访问与管理API。
+5.其他注意事项
+国内可用性：
+国内访问稳定，可直接使用Google企业邮箱或MetaMask注册登录，以避免部分邮箱服务商的限制。
+API Key：
+注册并登录后，进入右上角头像→Settings → API Keys，点击Create Key即可申请用于调用模型的密钥。
+密码重置：
+若遗忘密码，可在登录页面点击“Forgot password”链接，通过邮箱重置（需使用邮箱+密码方式注册的账号）。
+6.获取 API 密钥
+访问OpenRouter的官方网站注册一个账户或登录您现有的账户：
+https://openrouter.ai/
+完成注册和验证流程后，进入您的仪表板。在仪表板中找到"API密钥"或"API Keys"选项
+创建一个新的API密钥
+复制生成的API密钥，并安全地保存它
+DeepSeek API
+想要使用 DeepSeek 平台的AI模型能力，整个过程主要分为两步：
+豆包/火山云/字节跳动API密钥获取
+想要使用火山引擎平台的AI模型能力，整个过程主要分为两步：
+目录
+OpenRouter API
+1.邮箱 + 密码 注册
+2.GitHub 一键登录
+3.Google 一键登录
+4.MetaMask 钱包登录
+5.其他注意事项
+6.获取 API 密钥

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codex.local/tavo/schemas/mcp-surface.schema.json",
+  "title": "Redacted Tavo MCP Surface Dump",
+  "type": "object",
+  "required": ["dumped_at", "endpoint", "calls"],
+  "properties": {
+    "dumped_at": { "type": "string" },
+    "endpoint": {
+      "type": "object",
+      "required": ["url", "auth"],
+      "properties": {
+        "url": { "type": "string" },
+        "auth": { "type": "string" }
+      }
+    },
+    "calls": { "type": "object" },
+    "resource_reads": { "type": "object" },
+    "summary": { "type": "object" }
+  },
+  "additionalProperties": true
+}

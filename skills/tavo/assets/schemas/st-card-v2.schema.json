@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codex.local/tavo/schemas/st-card-v2.schema.json",
+  "title": "SillyTavern Character Card V2 Portable Baseline",
+  "type": "object",
+  "required": ["spec", "spec_version", "data"],
+  "properties": {
+    "spec": { "const": "chara_card_v2" },
+    "spec_version": { "type": "string", "pattern": "^2\\." },
+    "data": {
+      "type": "object",
+      "required": ["name", "description", "first_mes"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "personality": { "type": "string" },
+        "scenario": { "type": "string" },
+        "first_mes": { "type": "string" },
+        "mes_example": { "type": "string" },
+        "creator_notes": { "type": "string" },
+        "system_prompt": { "type": "string" },
+        "post_history_instructions": { "type": "string" },
+        "alternate_greetings": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "character_book": { "$ref": "character-book.schema.json" },
+        "extensions": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,15 @@
+{
+  "name": "{{worldbook_name}}",
+  "description": "{{worldbook_purpose}}",
+  "entries": [
+    {
+      "keys": ["{{trigger}}"],
+      "comment": "{{entry_label}}",
+      "content": "{{injected_fact_or_rule}}",
+      "enabled": true,
+      "constant": false,
+      "selective": true,
+      "order": 100
+    }
+  ]
+}
